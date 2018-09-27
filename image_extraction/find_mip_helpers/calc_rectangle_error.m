@@ -1,6 +1,5 @@
 
 function [fiterr]=calc_rectangle_error(ti,tj,tk,tl)
-%TODO Calculate angles of intersections of sides in other function
 
 %calculate angle between line i and line l
 t_il=180-abs(ti-tl);

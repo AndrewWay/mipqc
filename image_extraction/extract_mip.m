@@ -10,7 +10,7 @@ else
     rescale=0;
 end
 
-[rotAng,px1,py1,px2,py2] = FindMIP(I);
+[rotAng,px1,py1,px2,py2] = find_mip(I);
 
 if(rescale)
     px1=scale_factor*px1;
@@ -19,7 +19,7 @@ if(rescale)
     py2=scale_factor*py2;
 end
 
-MIP=rotateAround(I0,0,0,-1*rotAng,'bilinear');
+MIP=rotate_around(I0,0,0,-1*rotAng,'bilinear');
 MIP=MIP(py1:py2,px1:px2,:);
 
 
