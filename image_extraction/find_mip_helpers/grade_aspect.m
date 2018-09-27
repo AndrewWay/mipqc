@@ -13,3 +13,13 @@ else
     aspect3=sj/sk;
     aspect4=sj/sl;
 end
+
+
+aspect=(aspect1+aspect2+aspect3+aspect4)/4;
+if(aspect>=1.6)
+    if(aspect<=1.91)
+        grade=1;
+    end
+end
+
+end
