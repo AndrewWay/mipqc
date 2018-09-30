@@ -1,6 +1,8 @@
 function [ MIP ] = extract_mip( I0 )
 %EXTRACT_MIP Returns the region of an image that contains a MIP
 
+%Rescale the image if necessary. High resolution is not necessary and 
+%increases computation time. 
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
     scale_factor=size(I0,2)/640;
@@ -10,7 +12,19 @@ else
     rescale=0;
 end
 
-[rotAng,px1,py1,px2,py2] = find_mip(I);
+%Retrieve the sets of lines enclosing the MIP in image I
+[lines11,lines22,mip_edge] = find_mip(I);
+
+% Intersect the outer pair of lines, one from set 1 and one from set 2.
+% Output is the x,y coordinates of the intersections:
+% xIntersections(i1,i2): x coord of intersection of i1 and i2
+% yIntersections(i1,i2): y coord of intersection of i1 and i2
+[xIntersections, yIntersections] = find_intersections(lines11, lines22);
+[px1,py1,px2,py2]=find_perfect_vertices(xIntersections,yIntersections);
+
+extracted_mip = extract_rectangle(I,px1,py1,px2,py2);
+figure(1), imshow(I), title('Rotated Picture');
+figure(2), imshow(extracted_mip), title('Extracted MIP');
 
 if(rescale)
     px1=scale_factor*px1;
@@ -19,9 +33,10 @@ if(rescale)
     py2=scale_factor*py2;
 end
 
-MIP=rotate_around(I0,0,0,-1*rotAng,'bilinear');
-MIP=MIP(py1:py2,px1:px2,:);
+MIP=level_mip(I0,lines11,lines22);
 
+%MIP=MIP(py1:py2,px1:px2,:);
+%MIP=extract_rectangle(MIP,px1,py1,px2,py2);
 
 end
 

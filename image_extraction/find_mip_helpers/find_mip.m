@@ -1,4 +1,4 @@
-function [rotAng,px1,py1,px2,py2] = find_mip(I)
+function [lines11,lines22,E] = find_mip(I)
 %FIND_MIP Finds the region of an image that contains a MIP
     addpath('find_mip_helpers');
     fprintf('%s','Running MIP extraction routine...');
@@ -78,30 +78,7 @@ function [rotAng,px1,py1,px2,py2] = find_mip(I)
     %find the outer pair of lines
     %lines11=[lines1(:,1) lines1(:,end)];
     %lines22=[lines2(:,1) lines2(:,end)];
-
-    %Rotate entire system to be level with axes
-    [rotAng] = find_rotation_angle(lines11,lines22);
-    %E=imrotate(E,-1*rotAng,'bilinear','crop');
-
-    I=rotate_around(I,0,0,-1*rotAng,'bilinear');
-    I0=rotate_around(I0,0,0,-1*rotAng,'bilinear');
-    %imshow(I);
-    for i=1:size(lines11,2)
-       lines11(1,i)=lines11(1,i)+rotAng; 
-    end
-    for i=1:size(lines22,2)
-       lines22(1,i)=lines22(1,i)+rotAng; 
-    end
     
-    % Intersect the outer pair of lines, one from set 1 and one from set 2.
-    % Output is the x,y coordinates of the intersections:
-    % xIntersections(i1,i2): x coord of intersection of i1 and i2
-    % yIntersections(i1,i2): y coord of intersection of i1 and i2
-    [xIntersections, yIntersections] = find_intersections(lines11, lines22);
-    [px1,py1,px2,py2]=find_perfect_vertices(xIntersections,yIntersections);
-    mip_extracted = extract_rectangle(I0,px1,py1,px2,py2);
-    %figure(1), imshow(I), title('Rotated Picture');
-    %figure(2), imshow(mip_extracted), title('Extracted MIP');
     
  
    %figure(10), imshow(E), title('Edges');
