@@ -1,6 +1,7 @@
 function [ err ] = calc_hough_line_err( edge,line1,line2,line3,line4)
 %FITERROR Summary of this function goes here
 %   Detailed explanation goes here
+%is q(1,1) x? Or is Q(2,1) x?
 
 nEdgePoints = size(edge,1);
 err=0;

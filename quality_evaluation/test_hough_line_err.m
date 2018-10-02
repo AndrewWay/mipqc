@@ -42,10 +42,13 @@ I=insertText(I,[xInts(2,1) yInts(2,1)],ang3,'FontSize',18,...
     'BoxColor','black','TextColor','white');
 I=insertText(I,[xInts(2,2) yInts(2,2)],ang4,'FontSize',18,...
     'BoxColor','black','TextColor','white');
+hold on;
 imshow(I);
+imshow(mip_edge);
 set(line(line1(1,:),line1(2,:),'linewidth',2,'color',[1,0,0]));
 set(line(line2(1,:),line2(2,:),'linewidth',2,'color',[0,1,0]));
 set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[0,0,1]));
 set(line(line4(1,:),line4(2,:),'linewidth',2,'color',[1,1,0]));
 
+hold off;
 fprintf("Error: %d\n",err);
