@@ -28,7 +28,20 @@ line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];
 
 err=calc_hough_line_err(mip_edge,line1,line2,line3,line4);
 
+ang1=calc_angle_of_intersection(lines11(:,1),lines22(:,1));
+ang2=calc_angle_of_intersection(lines11(:,1),lines22(:,2));
+ang3=calc_angle_of_intersection(lines11(:,2),lines22(:,1));
+ang4=calc_angle_of_intersection(lines11(:,2),lines22(:,2));
 
+
+I=insertText(I,[xInts(1,1) yInts(1,1)],ang1,'FontSize',18,...
+    'BoxColor','black','TextColor','white');
+I=insertText(I,[xInts(1,2) yInts(1,2)],ang2,'FontSize',18,...
+    'BoxColor','black','TextColor','white');
+I=insertText(I,[xInts(2,1) yInts(2,1)],ang3,'FontSize',18,...
+    'BoxColor','black','TextColor','white');
+I=insertText(I,[xInts(2,2) yInts(2,2)],ang4,'FontSize',18,...
+    'BoxColor','black','TextColor','white');
 imshow(I);
 set(line(line1(1,:),line1(2,:),'linewidth',2,'color',[1,0,0]));
 set(line(line2(1,:),line2(2,:),'linewidth',2,'color',[0,1,0]));
