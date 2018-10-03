@@ -67,6 +67,14 @@ I=insertText(I,[l3_l_x l3_l_y],num2str(line3_length,'%2.0f px'),'FontSize',12,..
 I=insertText(I,[l4_l_x l4_l_y],num2str(line4_length,'%2.0f px'),'FontSize',12,...
     'BoxColor','black','TextColor','white');
 
+%Calculate aspect ratio of MIP
+asp_rat = calc_aspect_ratio(line1_length,line2_length,line3_length,...
+    line4_length);
+
+I=insertText(I,[10 10],num2str(asp_rat,'Aspect ratio: %2.2f:1'),...
+    'FontSize',12,...
+    'BoxColor','black','TextColor','green');
+
 hold on;
 
 %Find and isolate the MIP edge
@@ -86,7 +94,9 @@ end
 
 %Calculate the hough line error
 err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
-
+I=insertText(I,[10 35],num2str(err,'Hough line error: %2.2f'),...
+    'FontSize',12,...
+    'BoxColor','black','TextColor','green');
 
 imshow(I);
 
