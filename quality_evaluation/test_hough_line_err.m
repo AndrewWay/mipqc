@@ -54,7 +54,7 @@ for i=1:size(mip_edge_coords,1)
    
 end
 
-%err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
+err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
 
 imshow(I);
 

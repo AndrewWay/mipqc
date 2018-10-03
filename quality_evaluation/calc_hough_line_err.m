@@ -26,4 +26,5 @@ for p=1:nEdgePoints
     err=err+abs(M);
     
 end
+err=err/size(edge,1);
 end
