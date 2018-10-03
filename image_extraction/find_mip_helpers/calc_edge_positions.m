@@ -16,13 +16,5 @@ for i=1:n
     end
 end
 coords=coords(1:index-1,:);
-
-test=zeros(n,m);
-for i=1:index-1
-    x=coords(i,1);
-    y=coords(i,2);
-    test(y,x)=1;
-end
-imshow(test);
 end
 
