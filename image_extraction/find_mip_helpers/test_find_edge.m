@@ -25,13 +25,15 @@ if(rescale)
    mip_edge_coords=floor(scale_factor*mip_edge_coords); 
 end
 
+px_d=5;
+
 for i=1:size(mip_edge_coords,1)
    x=mip_edge_coords(i,1);
    y=mip_edge_coords(i,2);
    
-   I0(y,x,1)=uint8(0);
-   I0(y,x,2)=uint8(255);
-   I0(y,x,3)=uint8(0);
+   I0(y-px_d:y+px_d,x-px_d:x+px_d,1)=uint8(0);
+   I0(y-px_d:y+px_d,x-px_d:x+px_d,2)=uint8(255);
+   I0(y-px_d:y+px_d,x-px_d:x+px_d,3)=uint8(0);
    
 end
 
