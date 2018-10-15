@@ -9,6 +9,7 @@ if size(I0,2)>640
     rescale=1;
 else
     I=I0;
+    scale_factor=1;
     rescale=0;
 end
 
@@ -22,22 +23,30 @@ draw_lines(lines11,lines22,I);
 % xIntersections(i1,i2): x coord of intersection of i1 and i2
 % yIntersections(i1,i2): y coord of intersection of i1 and i2
 
-% if(rescale)
-%     px1=scale_factor*px1;
-%     px2=scale_factor*px2;
-%     py1=scale_factor*py1;
-%     py2=scale_factor*py2;
-%     lines11(2,:)=scale_factor*lines11(2,:);
-%     lines22(2,:)=scale_factor*lines22(2,:);
-% end
 
-MIP=level_mip(I,lines11,lines22);
-figure(1), imshow(I), title('Original');
-figure(2), imshow(MIP), title('Rotated');
+%Scale the Hough Lines
+scaled_lines11(2,:)=scale_factor*lines11(2,:);
+scaled_lines22(2,:)=scale_factor*lines22(2,:);
+scaled_lines11(1,:)=lines11(1,:);
+scaled_lines22(1,:)=lines22(1,:);
 
-[xIntersections, yIntersections] = find_intersections(lines11, lines22);
+%Level the MIP and the Hough lines
+[leveled_I0,leveled_scaled_lines11,leveled_scaled_lines22]=...
+    level_mip(I0,...
+    scaled_lines11,...
+    scaled_lines22);
+
+figure(1), imshow(I0), title('Original');
+figure(2), imshow(leveled_I0), title('Rotated');
+draw_lines(leveled_scaled_lines11,leveled_scaled_lines22,leveled_I0);
+
+[xIntersections, yIntersections] = find_intersections(...
+    scaled_leveled_lines11,...
+    scaled_leveled_lines22);
 
 [px1,py1,px2,py2]=find_perfect_vertices(xIntersections,yIntersections);
+
+%Extract the scaled, leveled MIP
 extracted_mip = extract_rectangle(I,px1,py1,px2,py2);
 
 MIP=level_mip(I0,lines11,lines22);
