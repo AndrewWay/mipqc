@@ -6,7 +6,7 @@ function [rotAng] = find_rotation_angle(lines1,lines2)
         if(t>=45)
            t=90-t; 
         end
-        ang_cumul=ang_cumul; 
+        ang_cumul=ang_cumul+t; 
     end
     for i=1:size(lines2,2)
         t=mod(lines2(1,i),90);

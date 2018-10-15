@@ -15,6 +15,8 @@ end
 %Retrieve the sets of lines enclosing the MIP in image I
 [lines11,lines22,mip_edge] = find_mip(I);
 
+draw_lines(lines11,lines22,I);
+
 % Intersect the outer pair of lines, one from set 1 and one from set 2.
 % Output is the x,y coordinates of the intersections:
 % xIntersections(i1,i2): x coord of intersection of i1 and i2
