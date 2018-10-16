@@ -1,4 +1,4 @@
-
+%TODO Probably just delete this function
 function [fiterr]=calc_rectangle_error(ti,tj,tk,tl)
 
 %calculate angle between line i and line l

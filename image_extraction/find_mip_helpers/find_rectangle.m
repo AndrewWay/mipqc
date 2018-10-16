@@ -12,6 +12,7 @@ jOpt=0;
 kOpt=0;
 lOpt=0;
 fit_err=inf;
+fit_grade=0;
 
 for i=1:nLines1
     linei=lines1(:,i);
@@ -33,11 +34,9 @@ for i=1:nLines1
                 
                 [angle_grade]=grade_angles(ti,tj,tk,tl,ang_tol);
                 [aspect_grade]=grade_aspect(si,sj,sk,sl);
-                [rectangle_grade]=grade_rectanglurity(ti,tj,tk,tl);
-                
-                [tmp_fit_err]=calc_rectangle_error(ti,tj,tk,tl);
-                if(tmp_fit_err<=fit_err)
-                    fit_err=tmp_fit_err;
+                tmp_fit_grade=angle_grade+aspect_grade;
+                if(tmp_fit_grade>fit_grade)
+                    fit_grade=tmp_fit_grade;
                     iOpt=i;
                     jOpt=j;
                     kOpt=k;

@@ -2,7 +2,7 @@ clear all
 close all
 
 %Load the image
-I0 = imread('test_image2.jpg');
+I0 = imread('mip_transmitted.jpg');
 
 %Make a down-scaled version of the image
 if size(I0,2)>640
