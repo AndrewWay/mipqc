@@ -19,4 +19,7 @@ function [rotAng] = find_rotation_angle(lines1,lines2)
     if(rotAng>=45)
         rotAng=90-aveAng;
     end
+    
+    %TODO!!!! Figure out how to automatically set sign of rotAng
+    rotAng=-1*rotAng;
 end

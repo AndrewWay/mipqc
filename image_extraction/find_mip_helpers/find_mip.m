@@ -11,8 +11,8 @@ function [lines11,lines22,E] = find_mip(I)
     %try different thresholds (0.5thresh - 5 thresh) to get clean edges
     
     %Students write your code here - use E as the name of edge image
-    
-    E = edge(I,'canny',0.54);
+    otsu_thresh=graythresh(I);
+    E = edge(I,'canny',otsu_thresh);
 
     %pause
     

@@ -6,6 +6,7 @@ function [ mip,lines11,lines22] = level_mip(mip,lines11,lines22 )
     [rotAng] = find_rotation_angle(lines11,lines22);
     %E=imrotate(E,-1*rotAng,'bilinear','crop');
 
+    
     mip=rotate_around(mip,0,0,-1*rotAng,'bilinear');
     
     for i=1:size(lines11,2)
