@@ -8,13 +8,11 @@ t_lj=180-abs(tl-tj);
 t_jk=180-abs(tj-tk);
 %calculate angle between line k and line i
 t_ki=180-abs(tk-ti);
-if(abs(t_il)-90<ang_tol)
-    if(abs(t_lj)-90<ang_tol)
-        if(abs(t_jk)-90<ang_tol)
-            if(abs(t_ki)-90<ang_tol)
-                grade=1;
-            end
-        end
-    end
-end
+
+t_il_score=grade_angle(t_il);
+t_lj_score=grade_angle(t_lj);
+t_jk_score=grade_angle(t_jk);
+t_ki_score=grade_angle(t_ki);
+
+grade=t_il_score+t_lj_score+t_jk_score+t_ki_score;
 end
