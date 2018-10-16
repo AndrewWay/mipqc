@@ -1,4 +1,4 @@
-function [ MIP ] = extract_mip( I0 )
+function [ extracted_mip ] = extract_mip( I0 )
 %EXTRACT_MIP Returns the region of an image that contains a MIP
 
 %Rescale the image if necessary. High resolution is not necessary and 
@@ -41,18 +41,13 @@ figure(2), imshow(leveled_I0), title('Rotated');
 draw_lines(leveled_scaled_lines11,leveled_scaled_lines22,leveled_I0);
 
 [xIntersections, yIntersections] = find_intersections(...
-    scaled_leveled_lines11,...
-    scaled_leveled_lines22);
+    leveled_scaled_lines11,...
+    leveled_scaled_lines22);
 
 [px1,py1,px2,py2]=find_perfect_vertices(xIntersections,yIntersections);
 
 %Extract the scaled, leveled MIP
-extracted_mip = extract_rectangle(I,px1,py1,px2,py2);
-
-MIP=level_mip(I0,lines11,lines22);
-
-%MIP=MIP(py1:py2,px1:px2,:);
-MIP=extract_rectangle(MIP,px1,py1,px2,py2);
+extracted_mip = extract_rectangle(leveled_I0,px1,py1,px2,py2);
 
 end
 
