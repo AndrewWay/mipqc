@@ -30,6 +30,8 @@ scaled_lines22(2,:)=scale_factor*lines22(2,:);
 scaled_lines11(1,:)=lines11(1,:);
 scaled_lines22(1,:)=lines22(1,:);
 
+draw_lines(scaled_lines11,scaled_lines22,I0);
+pause;
 %Level the MIP and the Hough lines
 [leveled_I0,leveled_scaled_lines11,leveled_scaled_lines22]=...
     level_mip(I0,...

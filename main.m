@@ -4,6 +4,7 @@ close all
 %Load the image
 I0 = imread('mip_transmitted.jpg');
 
+I0=I0(:,1418:4166,:);
 %Make a down-scaled version of the image
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
