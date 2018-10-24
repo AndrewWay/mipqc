@@ -1,6 +1,5 @@
 function [ O ] = sortIntoVector(M)
-%SORTINTOVECTOR Summary of this function goes here
-%   Detailed explanation goes here
+%SORTINTOVECTOR Sorts 2D matrix into ordered column vector
 imageDim1 = size(M,1);
 imageDim2 = size(M,2);
 

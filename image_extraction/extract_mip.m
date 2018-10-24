@@ -30,19 +30,19 @@ scaled_lines22(2,:)=scale_factor*lines22(2,:);
 scaled_lines11(1,:)=lines11(1,:);
 scaled_lines22(1,:)=lines22(1,:);
 
-draw_lines(scaled_lines11,scaled_lines22,I0);
-pause;
+%draw_lines(scaled_lines11,scaled_lines22,I0);
+%pause;
 %Level the MIP and the Hough lines
 [leveled_I0,leveled_scaled_lines11,leveled_scaled_lines22]=...
     level_mip(I0,...
     scaled_lines11,...
     scaled_lines22);
 
-figure(1), imshow(I0), title('Original');
-figure(2), imshow(leveled_I0), title('Rotated');
-pause;
-draw_lines(leveled_scaled_lines11,leveled_scaled_lines22,leveled_I0);
-pause;
+%figure(1), imshow(I0), title('Original');
+%figure(2), imshow(leveled_I0), title('Rotated');
+%pause;
+%draw_lines(leveled_scaled_lines11,leveled_scaled_lines22,leveled_I0);
+%pause;
 [xIntersections, yIntersections] = find_intersections(...
     leveled_scaled_lines11,...
     leveled_scaled_lines22);
