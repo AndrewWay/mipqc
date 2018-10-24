@@ -1,10 +1,13 @@
 clear all
 close all
 
-%Load the image
-I0 = imread('mip_transmitted.jpg');
+font_size=100;
 
-I0=I0(:,1418:4166,:);
+%Load the image
+I0 = imread('../Surface Defect Detection/defectdetect/MIPs/MIP5.jpg');
+%I0=imread('test_image2.jpg');
+%I0=I0(:,1418:4166,:);
+
 %Make a down-scaled version of the image
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
@@ -18,8 +21,12 @@ end
 %Retrieve the sets of lines enclosing the MIP in image I
 [lines11,lines22,mip_edge] = find_mip(I);
 
-%TODO rescale everything if the image was scaled down
-
+%Scale the Hough Lines
+lines11(2,:)=scale_factor*lines11(2,:);
+lines22(2,:)=scale_factor*lines22(2,:);
+lines11(1,:)=lines11(1,:);
+lines22(1,:)=lines22(1,:);
+I=I0;
 [xInts,yInts] = find_intersections(lines11,lines22);
 
 line1=[xInts(1,1),xInts(1,2);yInts(1,1),yInts(1,2)];
@@ -34,13 +41,13 @@ ang3=calc_angle_of_intersection(lines11(:,2),lines22(:,1));
 ang4=calc_angle_of_intersection(lines11(:,2),lines22(:,2));
 
 %Display these angles in the image
-I=insertText(I,[xInts(1,1) yInts(1,1)],ang1,'FontSize',12,...
+I=insertText(I,[xInts(1,1) yInts(1,1)],ang1,'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[xInts(1,2) yInts(1,2)],ang2,'FontSize',12,...
+I=insertText(I,[xInts(1,2) yInts(1,2)],ang2,'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[xInts(2,1) yInts(2,1)],ang3,'FontSize',12,...
+I=insertText(I,[xInts(2,1) yInts(2,1)],ang3,'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[xInts(2,2) yInts(2,2)],ang4,'FontSize',12,...
+I=insertText(I,[xInts(2,2) yInts(2,2)],ang4,'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
 
 %Calculate the lengths of the sides
@@ -59,45 +66,45 @@ l3_l_y=(line3(2,1)+line3(2,2))/2;
 l4_l_x=(line4(1,1)+line4(1,2))/2;
 l4_l_y=(line4(2,1)+line4(2,2))/2;
 
-I=insertText(I,[l1_l_x l1_l_y],num2str(line1_length,'%2.0f px'),'FontSize',12,...
+I=insertText(I,[l1_l_x l1_l_y],num2str(line1_length,'%2.0f px'),'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[l2_l_x l2_l_y],num2str(line2_length,'%2.0f px'),'FontSize',12,...
+I=insertText(I,[l2_l_x l2_l_y],num2str(line2_length,'%2.0f px'),'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[l3_l_x l3_l_y],num2str(line3_length,'%2.0f px'),'FontSize',12,...
+I=insertText(I,[l3_l_x l3_l_y],num2str(line3_length,'%2.0f px'),'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
-I=insertText(I,[l4_l_x l4_l_y],num2str(line4_length,'%2.0f px'),'FontSize',12,...
+I=insertText(I,[l4_l_x l4_l_y],num2str(line4_length,'%2.0f px'),'FontSize',font_size,...
     'BoxColor','black','TextColor','white');
 
 %Calculate aspect ratio of MIP
 asp_rat = calc_aspect_ratio(line1_length,line2_length,line3_length,...
     line4_length);
 
-I=insertText(I,[10 10],num2str(asp_rat,'Aspect ratio: %2.2f:1'),...
-    'FontSize',12,...
-    'BoxColor','black','TextColor','green');
+% I=insertText(I,[10 10],num2str(asp_rat,'Aspect ratio: %2.2f:1'),...
+%     'FontSize',font_size,...
+%     'BoxColor','black','TextColor','green');
 
 hold on;
 
-%Find and isolate the MIP edge
-mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
-mip_edge_coords=calc_edge_positions(mip_edge);
-
-%Display the MIP edge in the image
-for i=1:size(mip_edge_coords,1)
-   x=mip_edge_coords(i,1);
-   y=mip_edge_coords(i,2);
-   
-   I(y,x,1)=uint8(255);
-   I(y,x,2)=uint8(0);
-   I(y,x,3)=uint8(255);
-   
-end
+% %Find and isolate the MIP edge
+% mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
+% mip_edge_coords=calc_edge_positions(mip_edge);
+% 
+% %Display the MIP edge in the image
+% for i=1:size(mip_edge_coords,1)
+%    x=mip_edge_coords(i,1);
+%    y=mip_edge_coords(i,2);
+%    
+%    I(y,x,1)=uint8(255);
+%    I(y,x,2)=uint8(0);
+%    I(y,x,3)=uint8(255);
+%    
+% end
 
 %Calculate the hough line error
-err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
-I=insertText(I,[10 35],num2str(err,'Hough line error: %2.2f'),...
-    'FontSize',12,...
-    'BoxColor','black','TextColor','green');
+%err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
+%I=insertText(I,[10 200],num2str(err,'Hough line error: %2.2f'),...
+%    'FontSize',font_size,...
+%    'BoxColor','black','TextColor','green');
 
 imshow(I);
 

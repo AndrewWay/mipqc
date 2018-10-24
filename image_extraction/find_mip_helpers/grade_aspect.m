@@ -1,7 +1,7 @@
 
 function[grade] = grade_aspect(si,sj,sk,sl)
 
-peak_val=1.66;
+peak_val=1.91;
 peak_width=0.1;
 if(sk>=si)
     aspect1=sk/si;

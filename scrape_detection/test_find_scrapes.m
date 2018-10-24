@@ -3,7 +3,8 @@ close all
 
 %Load the image
 I0 = imread('mip_transmitted.jpg');
-I0=I0(:,1418:4166,:);
+I0 = imread('../Surface Defect Detection/defectdetect/MIPs/MIP5.jpg');
+%I0=I0(:,1418:4166,:);
 %Make a down-scaled version of the image
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
@@ -24,13 +25,13 @@ BW2 = bwareaopen(BW, 20);
 %figure(2), imshow(histogram(G));
 
 
-stats = regionprops('table',BW2,'Centroid',...
+stats = regionprops('table',BW,'Centroid',...
     'MajorAxisLength','MinorAxisLength')
 
 centroids = cat(1, stats.Centroid);
-imshow(BW2)
+imshow(BW)
 hold on
-plot(centroids(:,1), centroids(:,2), 'b*')
+plot(centroids(:,1), centroids(:,2), 'O')
 hold off
 
 

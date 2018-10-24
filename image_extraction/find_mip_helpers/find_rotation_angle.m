@@ -21,5 +21,5 @@ function [rotAng] = find_rotation_angle(lines1,lines2)
     end
     
     %TODO!!!! Figure out how to automatically set sign of rotAng
-    rotAng=-1*rotAng;
+    %rotAng=-1*rotAng;
 end
