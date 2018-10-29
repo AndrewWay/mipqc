@@ -10,14 +10,9 @@ if(size3>1)
     I=rgb2gray(I);    
 end
 
-mgl=0;
-for i=1:size1
-    for j=1:size2
-        px_gl=double(I(i,j));
-       mgl=double(mgl+px_gl);
-    end    
-end
-mgl=double(mgl/(size1*size2));
+I=sortIntoVector(I);
+
+mgl=median(I);
 
 end
 

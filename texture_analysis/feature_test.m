@@ -1,6 +1,9 @@
-I=imread('B5.jpg');
-mip=extract_mip(I);
-imshow(mip);
+
+if exist('mip','var')==0
+    I=imread('B5.jpg');
+    mip=extract_mip(I);
+%    imshow(mip);
+end
 
 img_dim1Divisions=50;
 img_dim2Divisions=100;
@@ -16,8 +19,10 @@ for i=1:img_dim1Divisions
     for j=1:img_dim2Divisions
         rgbmat=cell2mat(regionCells(i,j));
         means(i,j)=mean_gray_level(rgbmat);
+        medians(i,j)=median_gray_level(rgbmat);
+        
     end
 end
 
-histogram(features)
+histogram(medians)
 

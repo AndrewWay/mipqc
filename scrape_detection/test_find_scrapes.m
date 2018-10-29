@@ -35,3 +35,9 @@ plot(centroids(:,1), centroids(:,2), 'O')
 hold off
 
 
+areas=regionprops(BW, 'Area');
+areas=cat(1,areas.Area);
+figure(1), histogram(areas,150);
+figure(2),imshow(BW);
+
+
