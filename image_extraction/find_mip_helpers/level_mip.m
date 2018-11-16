@@ -5,7 +5,7 @@ function [ mip,lines11,lines22] = level_mip(mip,lines11,lines22 )
     %Rotate entire system to be level with axes
     [rotAng] = find_rotation_angle(lines11,lines22);
     %E=imrotate(E,-1*rotAng,'bilinear','crop');
-
+    rotAng=-1*rotAng;
     
     mip=rotate_around(mip,0,0,-1*rotAng,'bilinear');
     

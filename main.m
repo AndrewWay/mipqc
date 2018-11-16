@@ -85,20 +85,21 @@ asp_rat = calc_aspect_ratio(line1_length,line2_length,line3_length,...
 
 hold on;
 
-% %Find and isolate the MIP edge
-% mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
-% mip_edge_coords=calc_edge_positions(mip_edge);
-% 
-% %Display the MIP edge in the image
-% for i=1:size(mip_edge_coords,1)
-%    x=mip_edge_coords(i,1);
-%    y=mip_edge_coords(i,2);
-%    
-%    I(y,x,1)=uint8(255);
-%    I(y,x,2)=uint8(0);
-%    I(y,x,3)=uint8(255);
-%    
-% end
+%Find and isolate the MIP edge
+mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
+if(rescale)
+    mip_edge_coords=floor(scale_factor*calc_edge_positions(mip_edge));
+end
+%Display the MIP edge in the image
+for i=1:size(mip_edge_coords,1)
+   x=mip_edge_coords(i,1);
+   y=mip_edge_coords(i,2);
+   
+   I(y,x,1)=uint8(255);
+   I(y,x,2)=uint8(0);
+   I(y,x,3)=uint8(255);
+   
+end
 
 %Calculate the hough line error
 %err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
@@ -114,4 +115,4 @@ set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[0,0,1]));
 set(line(line4(1,:),line4(2,:),'linewidth',2,'color',[1,1,0]));
 
 hold off;
-fprintf("Error: %d\n",err);
+%fprintf("Error: %d\n",err);

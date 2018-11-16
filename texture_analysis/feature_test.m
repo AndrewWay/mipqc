@@ -2,7 +2,7 @@
 if exist('mip','var')==0
     I=imread('B5.jpg');
     mip=extract_mip(I);
-%    imshow(mip);
+    imshow(mip);
 end
 
 img_dim1Divisions=50;
