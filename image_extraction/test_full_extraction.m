@@ -2,7 +2,7 @@ clear all
 close all
 
 
-I = imread('test_image2.jpg');
+I = imread('test_image3.jpg');
 %I=I(:,1418:4166,:);
 % Find the checkerboard. Return the four outer corners as a 4x2 array,
 % in the form [ [x1,y1]; [x2,y2]; ... ].

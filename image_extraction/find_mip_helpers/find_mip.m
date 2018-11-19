@@ -1,4 +1,4 @@
-function [lines11,lines22,E] = find_mip(I)
+function [lines11,lines22,lines1,lines2,E] = find_mip(I)
 %FIND_MIP Finds the region of an image that contains a MIP
     fprintf('%s\n','Running MIP extraction routine...');
     I0=I;
@@ -15,6 +15,7 @@ function [lines11,lines22,E] = find_mip(I)
 
     %pause
     
+    
     % Do Hough transform to find lines.
     [H,thetaValues,rhoValues] = hough(E);
     
@@ -24,6 +25,7 @@ function [lines11,lines22,E] = find_mip(I)
         
     %try different number of peaks and different thresholds 
     
+    %TODO maybe. Find horizontal peaks, and then vertical peaks.
     %Students write your code here 
     nPeaks = 10;
     myThresh = 0.2*max(H(:));
@@ -76,7 +78,7 @@ function [lines11,lines22,E] = find_mip(I)
     %find the set of lines that form the best rectangle
     [lines11,lines22] = find_rectangle(lines1,lines2);
     
-%    [lines11,lines22] = filer_white_blocks(lines11,lines22,lines1,lines2,I);
+    [lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     %find the outer pair of lines
     %lines11=[lines1(:,1) lines1(:,end)];
