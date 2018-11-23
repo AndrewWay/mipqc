@@ -40,8 +40,10 @@ scaled_lines22(1,:)=lines22(1,:);
 %figure(1), imshow(I0), title('Original');
 %figure(2), imshow(leveled_I0), title('Rotated');
 %pause;
-draw_lines(leveled_scaled_lines11,leveled_scaled_lines22,leveled_I0);
+figure(1), imshow(draw_lines(leveled_scaled_lines11,...
+    leveled_scaled_lines22,leveled_I0));
 pause;
+close(figure(1));
 [xIntersections, yIntersections] = find_intersections(...
     leveled_scaled_lines11,...
     leveled_scaled_lines22);

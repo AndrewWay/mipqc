@@ -20,6 +20,10 @@ function [rotAng] = find_rotation_angle(lines1,lines2)
         rotAng=90-aveAng;
     end
     
-    %TODO!!!! Figure out how to automatically set sign of rotAng
-    %rotAng=-1*rotAng;
+    %TODO!!!! Maybe find better way of setting CCW vs CW rotation?
+    if(lines1(1,1)<0&&lines1(1,2)<0)
+        rotAng=-1*rotAng;    
+    else if(lines1(1,1)*lines1(1,2)<0)
+        fprintf("Potential error in find_rotation_angle\n");
+    end
 end
