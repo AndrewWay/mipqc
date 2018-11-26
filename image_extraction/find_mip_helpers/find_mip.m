@@ -1,4 +1,4 @@
-function [lines11,lines22,lines1,lines2,E] = find_mip(I)
+function [lines11,lines22,E] = find_mip(I)
 %FIND_MIP Finds the region of an image that contains a MIP
     fprintf('%s\n','Running MIP extraction routine...');
     I0=I;

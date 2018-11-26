@@ -16,9 +16,12 @@ end
 %Retrieve the sets of lines enclosing the MIP in image I
 [lines11,lines22,mip_edge] = find_mip(I);
 
-
+imshow(mip_edge);
+pause;
 mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
 imshow(mip_edge);
+pause;
+
 mip_edge_coords = calc_edge_positions(mip_edge);
 
 if(rescale)
