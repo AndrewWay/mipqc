@@ -5,7 +5,7 @@ close all;
 clear all;
 
 %PARAMETERS
-numOfImages=32;
+numOfImages=9;
 img_dim1Divisions=40;
 img_dim2Divisions=40;
 som_dim2 = 20;
@@ -17,21 +17,30 @@ nFeats=6;
 featVecs = zeros(nFeats,img_dim1Divisions,img_dim2Divisions,numOfImages);
 
 %Load images into memory
-for k=9:numOfImages
-    pngFileName = strcat('../Surface Defect Detection/defectdetect/MIPs/C/C'...
-        , num2str(k), 't.jpg');
+for k=1:numOfImages
+    pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
     if exist(pngFileName, 'file')
         disp(pngFileName);
         %Read MIP image to matrix
         I = imread(pngFileName);
         
         %!!!!DELETE
-        if(k<=10)
-            I=I(:,900:3480,:);% DELETE THIS!!
-        else
-            I=I(:,1485:4090,:);% DELETE THIS!!
-        end
+%         if(numOfImages<=10)
+%             I=I(:,900:3480,:);% DELETE THIS!!
+%         else
+%             I(:,1:981,1)=0;
+%             I(:,1:981,2)=0;
+%             I(:,1:981,3)=0;
+%             I(:,3459:end,1)=0;
+%             I(:,3459:end,2)=0;
+%             I(:,3459:end,3)=0;
+%         end
         %!!!!
+        figure(1), imshow(I);
+        pause;
+        
+        close(figure(1));
+        
         
         % Find and return the MIP.
         [MIP]=extract_mip(I);

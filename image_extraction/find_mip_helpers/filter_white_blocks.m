@@ -1,9 +1,12 @@
 function [ lines11,lines22 ] = filter_white_blocks( lines11,lines22,...
     lines1,lines2,I )
-%FILTER_WHITE_BLOCKS Summary of this function goes here
-%   Detailed explanation goes here
+%FILTER_WHITE_BLOCKS Finds white blocks within the rectangle enclosed by
+%lines11 and lines22. The white blocks created are formed by replacing one
+%of the lines from lines11 or lines22 with a line from lines1 or lines2
+%(respectively
 
 bw_thresh=0.37;
+whiteness_thresh=0.5;
 %lines11 contain 2 mostly parallel lines chosen for the sides of the
 %rectangle. Similarly for lines22, except they are mostly orthogonal to
 %the lines in lines11.
@@ -114,7 +117,7 @@ for i=1:nLines1
         %Replace the closest chosen line with line1_i
          
             %This is really confusing
-            if(whiteness>=0.9)
+            if(whiteness>=whiteness_thresh)
                 if(lines11_2_replaced)
                     lines11(:,2)=replaced_line;
                     lines11(:,1)=[t_i;r_i];
@@ -190,7 +193,7 @@ for i=1:nLines2
         %Replace the closest chosen line with line1_i
          
             %This is really confusing
-            if(whiteness>=0.9)
+            if(whiteness>=whiteness_thresh)
                 if(lines22_2_replaced)
                     lines22(:,2)=replaced_line;
                     lines22(:,1)=[t_i;r_i];

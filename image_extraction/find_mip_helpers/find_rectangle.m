@@ -1,6 +1,9 @@
 function [lines11, lines22] = find_rectangle(lines1,lines2)
 nLines1=size(lines1,2);
 nLines2=size(lines2,2);
+%fprintf("NOTE: The expected lengths for MIPs are being set in find_rectangle\n");
+%length1_max;
+%length2_max;
 
 %
 ang_tol=5;
@@ -31,10 +34,12 @@ for i=1:nLines1
                 tl=lines2(1,l);
                 rl=lines2(2,l);
                 [si,sj,sk,sl]=calc_sides_lengths(linei,linej,linek,linel);
-                
+                %si_grade = 
+                fprintf("Indices: %f %f %f %f\n",i,j,k,l);
                 [angle_grade]=grade_angles(ti,tj,tk,tl,ang_tol);
                 [aspect_grade]=grade_aspect(si,sj,sk,sl);
-                tmp_fit_grade=angle_grade+aspect_grade;
+                tmp_fit_grade=2*angle_grade+aspect_grade;
+                
                 if(tmp_fit_grade>fit_grade)
                     fit_grade=tmp_fit_grade;
                     iOpt=i;
@@ -47,7 +52,7 @@ for i=1:nLines1
         end
     end
 end
-%     fprintf("Optimal indices: %f %f %f %f\n",iOpt,jOpt,kOpt,lOpt);
+    fprintf("Optimal indices: %f %f %f %f\n",iOpt,jOpt,kOpt,lOpt);
 %     %Create optimal set of lines
 lines11=[lines1(:,iOpt) lines1(:,jOpt)];
 lines22=[lines2(:,kOpt) lines2(:,lOpt)];

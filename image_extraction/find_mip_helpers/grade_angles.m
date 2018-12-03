@@ -13,6 +13,8 @@ t_il_score=grade_angle(t_il);
 t_lj_score=grade_angle(t_lj);
 t_jk_score=grade_angle(t_jk);
 t_ki_score=grade_angle(t_ki);
+fprintf("grade_angles: Internal Angles: %f %f %f %f\n",t_il,t_lj,t_jk,t_ki);
+
 
 grade=t_il_score+t_lj_score+t_jk_score+t_ki_score;
 end
