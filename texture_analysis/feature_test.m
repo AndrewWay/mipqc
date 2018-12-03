@@ -7,7 +7,7 @@
 clear all;
 close all;
 
-nFeats=15;
+nFeats=14;
 
 img_dim1Divisions=20;
 img_dim2Divisions=40;
@@ -34,12 +34,12 @@ imc1s=zeros(img_dim1Divisions,img_dim2Divisions);
 imc2s=zeros(img_dim1Divisions,img_dim2Divisions);
 mccs=zeros(img_dim1Divisions,img_dim2Divisions); %max correlation coeff.
 
-numOfImages=1;
+numOfImages=9;
 data=zeros(numOfImages*img_dim1Divisions*img_dim2Divisions,nFeats);
 data_index=1;
 
 
-for k=3:3
+for k=1:numOfImages
     pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
     I = imread(pngFileName);
     mip=extract_mip(I);
@@ -72,18 +72,18 @@ for k=3:3
             data(data_index,2)=median_gray_level(rgbmat);
             data(data_index,3)=x(1);
             data(data_index,4)=x(2);
-            data(data_index,5)=x(3);
-            data(data_index,6)=x(4);
-            data(data_index,7)=x(5);
-            data(data_index,8)=x(6);
-            data(data_index,9)=x(7);
-            data(data_index,10)=x(8);
-            data(data_index,11)=x(9);
-            data(data_index,12)=x(10);
-            data(data_index,13)=x(11);
+            %data(data_index,5)=x(3);
+            data(data_index,5)=x(4);
+            data(data_index,6)=x(5);
+            data(data_index,7)=x(6);
+            data(data_index,8)=x(7);
+            data(data_index,9)=x(8);
+            data(data_index,10)=x(9);
+            data(data_index,11)=x(10);
+            data(data_index,12)=x(11);
             %data(data_index,14)=x(12);
-            data(data_index,14)=x(13);
-            data(data_index,15)=x(14);
+            data(data_index,13)=x(13);
+            data(data_index,14)=x(14);
             
             data_index=data_index+1;
         end
@@ -100,6 +100,8 @@ V
 % Multiply the original data by the principal component vectors to get the projections of the original data on the
 % principal component vector space. This is also the output "score". Compare ...
 dataInPrincipalComponentSpace = data*coeff
+tCoeff=coeff(:,1:2);
+tData = data*tCoeff;
 score
 % The columns of X*coeff are orthogonal to each other. This is shown with ...
 corrcoef(dataInPrincipalComponentSpace)
