@@ -9,8 +9,8 @@ close all;
 
 nFeats=14;
 
-img_dim1Divisions=20;
-img_dim2Divisions=40;
+img_dim1Divisions=30;
+img_dim2Divisions=60;
 
 means=zeros(img_dim1Divisions,img_dim2Divisions);
 medians=zeros(img_dim1Divisions,img_dim2Divisions);
@@ -34,7 +34,7 @@ imc1s=zeros(img_dim1Divisions,img_dim2Divisions);
 imc2s=zeros(img_dim1Divisions,img_dim2Divisions);
 mccs=zeros(img_dim1Divisions,img_dim2Divisions); %max correlation coeff.
 
-numOfImages=9;
+numOfImages=1;
 data=zeros(numOfImages*img_dim1Divisions*img_dim2Divisions,nFeats);
 data_index=1;
 
@@ -42,7 +42,8 @@ data_index=1;
 for k=1:numOfImages
     pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
     I = imread(pngFileName);
-    mip=extract_mip(I);
+    mip=I;
+    %mip=extract_mip(I);
     regionCells = dice(mip,img_dim1Divisions,img_dim2Divisions);
     for i=1:img_dim1Divisions
         for j=1:img_dim2Divisions
@@ -100,7 +101,7 @@ V
 % Multiply the original data by the principal component vectors to get the projections of the original data on the
 % principal component vector space. This is also the output "score". Compare ...
 dataInPrincipalComponentSpace = data*coeff
-tCoeff=coeff(:,1:2);
+tCoeff=coeff(:,1:3);
 tData = data*tCoeff;
 score
 % The columns of X*coeff are orthogonal to each other. This is shown with ...
@@ -119,3 +120,14 @@ for i=1:nFeats
     fprintf(fileID,'\n');
 end
 fclose(fileID);
+
+som_dim2=20;
+som_dim3=20;
+
+net = selforgmap([som_dim2 som_dim3]);
+[net, tr] =train(net,tData);
+op_som=vec2ind(net(tData));
+
+
+
+

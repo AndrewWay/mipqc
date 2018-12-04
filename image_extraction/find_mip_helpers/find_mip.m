@@ -77,10 +77,10 @@ function [lines11,lines22,E] = find_mip(I)
 
     %find the set of lines that form the best rectangle
     [lines11,lines22] = find_rectangle(lines1,lines2);
-    fprintf("%s\n","line 80, find_mip");
-    figure(1), imshow(draw_lines(lines11,lines22,I));
-    pause;
-    close(figure(1));
+%     fprintf("%s\n","line 80, find_mip");
+%     figure(1), imshow(draw_lines(lines11,lines22,I));
+%     pause;
+%     close(figure(1));
     [lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     %find the outer pair of lines

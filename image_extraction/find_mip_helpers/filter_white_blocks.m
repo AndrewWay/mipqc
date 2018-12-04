@@ -61,9 +61,10 @@ else
     lines22_parallel=0;
 end
 
-imshow(draw_lines(lines11,lines22,I));
-pause;
-close all;
+% fprintf("Line 64, filter_white_blocks\n");
+% imshow(draw_lines(lines11,lines22,I));
+% pause;
+% close all;
 
 for i=1:nLines1
     line1_i=lines1(:,i);
