@@ -35,8 +35,8 @@ for i=1:nLines1
                 rl=lines2(2,l);
                 [si,sj,sk,sl]=calc_sides_lengths(linei,linej,linek,linel);
                 %si_grade = 
-                fprintf("Indices: %f %f %f %f\n",i,j,k,l);
-                [angle_grade]=grade_angles(ti,tj,tk,tl,ang_tol);
+                %fprintf("Indices: %f %f %f %f\n",i,j,k,l);
+                [angle_grade]=grade_angles(ti,tj,tk,tl);
                 [aspect_grade]=grade_aspect(si,sj,sk,sl);
                 tmp_fit_grade=2*angle_grade+aspect_grade;
                 

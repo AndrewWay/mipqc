@@ -20,7 +20,7 @@ function [rotAng] = find_rotation_angle(lines1,lines2)
         rotAng=90-aveAng;
     end
     
-    %TODO!!!! Maybe find better way of setting CCW vs CW rotation?
+    %TODO Maybe find better way of setting CCW vs CW rotation?
     if(lines1(1,1)<0&&lines1(1,2)<0)
         rotAng=-1*rotAng;    
     else if(lines1(1,1)*lines1(1,2)<0)

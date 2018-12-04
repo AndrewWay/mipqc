@@ -81,7 +81,7 @@ function [lines11,lines22,E] = find_mip(I)
     figure(1), imshow(draw_lines(lines11,lines22,I));
     pause;
     close(figure(1));
-    %[lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
+    [lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     %find the outer pair of lines
     %lines11=[lines1(:,1) lines1(:,end)];
