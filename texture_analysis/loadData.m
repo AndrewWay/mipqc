@@ -8,8 +8,6 @@ clear all;
 numOfImages=9;
 img_dim1Divisions=40;
 img_dim2Divisions=40;
-som_dim2 = 20;
-som_dim3 = 20;
 
 
 nFeats=14;
@@ -46,20 +44,10 @@ for k=1:numOfImages
     end
 end
 
-%Initialize SOM
-%Set each vector in the SOM to a vector of random weights
-net = selforgmap([som_dim2 som_dim3]);
+%data=zscore(data);%Uncomment this line to use correlation matrix in PCA
+
 [coeff,score,latent,~,explained] = pca(data);
 tCoeff=coeff(:,1:2);
+
 tData = data*tCoeff;
 X=tData;
-%inputs=data';
-
-%[net, tr] =train(net,inputs);
-
-%som = SOM(nFeats,som_dim2,som_dim3);
-
-%TRAINING
-%[som,trainingErrorTimeSeries] = som.Train(featVecs,nIterations);
-
-%plot(trainingErrorTimeSeries);

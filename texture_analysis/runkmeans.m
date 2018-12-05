@@ -2,7 +2,8 @@ opts = statset('Display','final');
 [idx,C] = kmeans(X,4,'Distance','cityblock',...
     'Replicates',5,'Options',opts);
 figure(1);
-
+xlabel("Projection of data along first principal component");
+ylabel("Projection of data along second principal component");
 plot(X(idx==1,1),X(idx==1,2),'r.','MarkerSize',12)
 hold on
 plot(X(idx==2,1),X(idx==2,2),'g.','MarkerSize',12)
@@ -12,10 +13,12 @@ hold on
 plot(X(idx==4,1),X(idx==4,2),'y.','MarkerSize',12)
 plot(C(:,1),C(:,2),'kx',...
     'MarkerSize',15,'LineWidth',3)
-legend('Cluster 1','Cluster 2','Centroids',...
+legend('Cluster 1','Cluster 2','Cluster 3',...
+    'Cluster 4','Centroids',...
     'Location','NW')
 title 'Cluster Assignments and Centroids'
 hold off
+pause;
 
 pngFileName = strcat('data/B/MIP5.jpg');
 if exist(pngFileName, 'file')
@@ -33,6 +36,7 @@ if exist(pngFileName, 'file')
     
     %Dice the matrix into regions
     uData=createFeatVecs(MIP,nFeats,img_dim1Divisions,img_dim2Divisions);
+    %uData=zscore(uData);%Uncomment this line to Zscore the unknown data.
     uData=uData*tCoeff;%Transform unknown data
     index=1;
     %Find BMU
