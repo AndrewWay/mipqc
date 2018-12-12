@@ -4,7 +4,7 @@ clear all
 close all
 
 
-I0 = imread('test_image2.jpg');
+I0 = imread('data/B/MIP2.jpg');
 
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
@@ -42,7 +42,11 @@ I=insertText(I,[xInts(2,2) yInts(2,2)],ang4,'FontSize',18,...
     'BoxColor','black','TextColor','white');
 hold on;
 mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
+
 mip_edge_coords=calc_edge_positions(mip_edge);
+
+
+rArray1=
 
 for i=1:size(mip_edge_coords,1)
    x=mip_edge_coords(i,1);

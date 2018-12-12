@@ -2,6 +2,9 @@ function [lines1, lines2] = find_orthogonal_lines( ...
 rhoValues, ... % rhos for the lines
 thetaValues) % thetas for the lines
 
+%lines1: mostly vertical
+%lines2: mostly horizontal
+
 % Find the largest two modes in the distribution of angles.
 %create a set of angles in an array called bins from -90 to 90 with step 10
 %then use histcounts to get the histogram

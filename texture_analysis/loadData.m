@@ -29,7 +29,8 @@ for k=1:numOfImages
 %         
         
         % Find and return the MIP.
-        [MIP]=extract_mip(I);
+        %[MIP]=extract_mip(I);
+        MIP=I;
 %         figure(1),imshow(MIP);
 %         pause;
 %         close(figure(1));
