@@ -4,6 +4,9 @@ clear all
 close all
 
 
+min_grade=0.7;
+max_grade=1-min_grade;
+
 I0 = imread('data/B/MIP2.jpg');
 if size(I0,2)>640
     I0 = imresize(I0, 640/size(I0,2));
@@ -28,7 +31,7 @@ line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];%2nd horizontal
 
 
 
-mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
+%mip_edge = extract_mip_edge(lines11,lines22,mip_edge);
 
 mip_edge_coords=calc_edge_positions(mip_edge);
 edge_size=size(mip_edge_coords,1);
@@ -134,6 +137,10 @@ for i=1:n
     else
         bin_err=bin_err/n_points_in_bin;
         bin_grade=1-bin_err/max_bin_err;
+        bin_grade=(bin_grade-min_grade)/max_grade;
+        if(bin_grade<0)
+           bin_grade=0; 
+        end
     end
     box_color=gradeColor(bin_grade);
     
