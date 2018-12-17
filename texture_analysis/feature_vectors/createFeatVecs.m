@@ -54,7 +54,7 @@ for i=1:img_dim1Divisions
         %data(data_index,14)=x(12);
         data(data_index,13)=x(13);
         data(data_index,14)=x(14);
-                
+        data(data_index,15)=blob(rgbmat,thres);
         
         data_index=data_index+1;
         

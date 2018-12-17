@@ -3,11 +3,12 @@
 
 %Initialize SOM
 %Set each vector in the SOM to a vector of random weights
-net = selforgmap([som_dim2 som_dim3]);
 som_dim2 = 20;
 som_dim3 = 20;
 
-inputs=data';
+net = selforgmap([som_dim2 som_dim3]);
+
+inputs=X';
 
 [net, tr] =train(net,inputs);
 

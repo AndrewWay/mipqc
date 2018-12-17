@@ -36,7 +36,7 @@ if exist(pngFileName, 'file')
     
     %Dice the matrix into regions
     uData=createFeatVecs(MIP,nFeats,img_dim1Divisions,img_dim2Divisions);
-    %uData=zscore(uData);%Uncomment this line to Zscore the unknown data.
+    uData=zscore(uData);%Uncomment this line to Zscore the unknown data.
     uData=uData*tCoeff;%Transform unknown data
     index=1;
     %Find BMU
