@@ -17,18 +17,12 @@ if exist(pngFileName, 'file')
     
     %Read into MIP image to matrices
     I = imread(pngFileName);
-        %!!!!DELETE
-%         if(k<=10)
-%             I=I(:,900:3480,:);% DELETE THIS!!
-%         else
-%             I=I(:,1485:4090,:);% DELETE THIS!!
-%         end
-        %!!!!
+
     % Find and return the MIP.
     [MIP]=extract_mip(I);
         
     %Use the following line if you don't want to extract
-   % MIP=I;
+    % MIP=I;
     
     imageDim1 = size(MIP,1);
     imageDim2 = size(MIP,2);
@@ -58,6 +52,4 @@ if exist(pngFileName, 'file')
         end
         fprintf("\n");
     end
-
-
 end

@@ -14,6 +14,7 @@ nFeats=15;
 
 
 data = [];
+imgCells = [];
 %Load images into memory
 for k=1:numOfImages
     pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');

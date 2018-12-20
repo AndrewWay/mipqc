@@ -26,7 +26,8 @@ for k=1:numOfImages
             for j=1:img_dim2Divisions
                 
                 featVec = uData(index,:)';
-                clusterIndex=findBMU(featVec,som);%vec2ind(net(featVec));
+                %clusterIndex=findBMU(featVec,som);
+                clusterIndex=vec2ind(net(featVec));
                 
                 BMU_i=floor(clusterIndex/som_dim2)+1;
                 BMU_j=mod(clusterIndex,som_dim3)+1;
