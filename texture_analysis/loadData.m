@@ -5,16 +5,18 @@ close all;
 clear all;
 
 %PARAMETERS
-numOfImages=9;
+numOfImages=5;
 img_dim1Divisions=40;
 img_dim2Divisions=40;
 
 
-nFeats=15;
+nFeatures=19;
 
 
-data = [];
-imgCells = [];
+%each row in data corresponds to the same row in imageCells. 
+data = [];%matrix with each row being an observation.
+image_cells = [];%column vector containing cells of images
+
 %Load images into memory
 for k=1:numOfImages
     pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
@@ -31,16 +33,25 @@ for k=1:numOfImages
         
         % Find and return the MIP.
         [MIP]=extract_mip(I);
+        regionCells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
+        regionCells_dim1=size(regionCells,1);
+        regionCells_dim2=size(regionCells,1);
         %MIP=I;
 %         figure(1),imshow(MIP);
 %         pause;
 %         close(figure(1));
         %Use the following line if you don't want tom  extract
         %MIP=I;
-        imageDim1 = size(MIP,1);
-        imageDim2 = size(MIP,2);
         
-        data=[data;createFeatVecs(MIP,nFeats,img_dim1Divisions,img_dim2Divisions)];
+        for ii=1:regionCells_dim1
+            for jj=1:regionCells_dim2
+                cell=regionCells(ii,jj);
+                mat=cell2mat(cell);
+                feature_vector=create_feature_vector(mat,nFeatures);
+                data=[data;(feature_vector)];
+                image_cells=[image_cells;cell];
+            end
+        end
     else
         fprintf('File %s does not exist.\n', pngFileName);
     end
@@ -52,4 +63,4 @@ end
 tCoeff=coeff(:,1:2);
 
 tData = data*tCoeff;
-X=tData;
+W=tData;
