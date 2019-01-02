@@ -28,14 +28,14 @@ feature_vector(1,12)=x(11);
 %feature_vector(1,14)=x(12);
 feature_vector(1,13)=x(13);
 feature_vector(1,14)=x(14);
-feature_vector(1,15)=blob(mat,thres);
-feature_vector(1,16)=blob(mat,thres);
-feature_vector(1,17)=blob(mat,thres);
-feature_vector(1,18)=blob(mat,thres);
-feature_vector(1,19)=blob(mat,thres);
+feature_vector(1,15)=blob(mat,0.5);
+feature_vector(1,16)=blob(mat,0.6);
+feature_vector(1,17)=blob(mat,0.7);
+feature_vector(1,18)=blob(mat,0.8);
+feature_vector(1,19)=blob(mat,0.9);
 
 
-if(nFeatures<15)
+if(nFeatures<19)
    fprintf("WARNING: Number of features less than feature vector size\n"); 
 end
 

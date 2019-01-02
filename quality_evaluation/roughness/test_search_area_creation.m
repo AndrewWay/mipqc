@@ -48,8 +48,8 @@ end
 
 %err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
 
-q1=line3(:,1);
-q2=line3(:,2);
+q1=line1(:,1);
+q2=line1(:,2);
 a=10;%half height of search area (height above the line)
 th=lines11(1,2);
 
@@ -94,7 +94,7 @@ imshow(I0);
 
 %set(line(line1(1,:),line1(2,:),'linewidth',2,'color',[1,0,0]));
 %set(line(line2(1,:),line2(2,:),'linewidth',1,'color',[1,0,0]));
-set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[1,0,0]));
+%set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[1,0,0]));
 % set(line(line4(1,:),line4(2,:),'linewidth',2,'color',[1,1,0]));
 
 max_bin_err=a;

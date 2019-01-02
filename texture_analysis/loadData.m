@@ -5,7 +5,7 @@ close all;
 clear all;
 
 %PARAMETERS
-numOfImages=5;
+numOfImages=9;
 img_dim1Divisions=40;
 img_dim2Divisions=40;
 
@@ -57,10 +57,10 @@ for k=1:numOfImages
     end
 end
 
-%data=zscore(data);%Uncomment this line to use correlation matrix in PCA
+zdata=zscore(data);%Use this data to usze correlation matrix in PCA
 
-[coeff,score,latent,~,explained] = pca(data);
+[coeff,score,latent,~,explained] = pca(zdata);
 tCoeff=coeff(:,1:2);
 
-tData = data*tCoeff;
+tData = zdata*tCoeff;
 W=tData;
