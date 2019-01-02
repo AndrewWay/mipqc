@@ -47,11 +47,25 @@ for i=1:size(mip_edge_coords,1)
 end
 
 %err=calc_hough_line_err(mip_edge_coords,line1,line2,line3,line4);
+sides=zeros(2,2,4);
+angles=zeros(1,4);
+sides(:,:,1)=line1;
+sides(:,:,2)=line2;
+sides(:,:,3)=line3;
+sides(:,:,4)=line4;
+angles(1)=lines11(1,1);
+angles(2)=lines22(1,1);
+angles(3)=lines11(1,2);
+angles(4)=lines22(1,2);
+imshow(I0);
+hold on;
 
-q1=line1(:,1);
-q2=line1(:,2);
+for side=1:4
+    l=sides(:,:,side);
+q1=l(:,1);
+q2=l(:,2);
 a=10;%half height of search area (height above the line)
-th=lines11(1,2);
+th=angles(side);
 
 
 
@@ -76,23 +90,31 @@ if(x1==x2)
        y1=y2;
        y2=tmp;      
     end
+    m=(x2-x1)/(y2-y1);
 else    
+    if(x1>x2)
+        tmpx=x2;
+        tmpy=y2;
+        x2=x1;
+        y2=y1;
+        x1=tmpx;
+        y1=tmpy;
+    end
     n=floor((x2-x1)/ds);
     ds=abs((x2-x1)/n);
+    m=(y2-y1)/(x2-x1);
 end
 
 
 xi=x1;
 yi=y1;
 
-%TODO account for vertical line
-m=(y2-y1)/(x2-x1);
+
 b=y1-m*x1;
 %(xi,yi) is the first end point of the bin.
 %(xip1,yip1) is the second end point of the bin (xi plus 1, yi plus 1).
-imshow(I0);
 
-%set(line(line1(1,:),line1(2,:),'linewidth',2,'color',[1,0,0]));
+set(line(l(1,:),l(2,:),'linewidth',2,'color',[1,0,0]));
 %set(line(line2(1,:),line2(2,:),'linewidth',1,'color',[1,0,0]));
 %set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[1,0,0]));
 % set(line(line4(1,:),line4(2,:),'linewidth',2,'color',[1,1,0]));
@@ -123,7 +145,7 @@ for i=1:n
         
         if(point_is_in_box(x,y,p1,p2,p3,p4))
             n_points_in_bin=n_points_in_bin+1;
-            fprintf("(%d,%d) in box\n",x,y);
+            %fprintf("(%d,%d) in box\n",x,y);
             set(line([x-1,x],[y-1,y],'linewidth',2,'color',[0,0,1]));
             %Calculate its orthogonal distance from the current point to each line
             point_distance = distance(q1,q2,[x;y]);
@@ -155,7 +177,7 @@ for i=1:n
 end
 
 
-
+end
 hold off;
 % fprintf("Error: %d\n",err);
 
