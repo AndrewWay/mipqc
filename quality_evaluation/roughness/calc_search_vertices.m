@@ -3,7 +3,6 @@ function [ p1,p2 ] = calc_search_vertices( qi,th,a )
 %at qi, with length 2*alpha, with angle th relative to the x axis
 xi=qi(1,1);
 yi=qi(2,1);
-th=pi*th/180;
 x_shift=-a*cos(th);
 y_shift=a*sin(th);
 
