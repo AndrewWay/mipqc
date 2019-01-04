@@ -60,7 +60,7 @@ angles(4)=lines22(1,2);
 imshow(I0);
 hold on;
 
-for side=2:2
+for side=1:4
     l=sides(:,:,side);
 q1=l(:,1);
 q2=l(:,2);
