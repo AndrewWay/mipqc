@@ -4,7 +4,7 @@ clear all
 close all
 
 
-I0 = imread('../test_image2.jpg');
+I0 = imread('data/B/MIP7.jpg');
 
 if size(I0,2)>640
     I = imresize(I0, 640/size(I0,2));
