@@ -18,76 +18,26 @@ end
 otsu_thres=graythresh(I);
 I=extract_mip(I);
 
-G=rgb2gray(I);
-
-
-BW=im2bw(I,otsu_thres);
-BW2 = bwareaopen(BW, 20);
-
-
-
-scratch_polygon=[145,92;
-                 162,92;
-                 145,110;
-                 162,110;]
-speckle_polygon=[27,98;
-                 44,98;
-                 27,116;
-                 162,116;]
-%I = insertShape(I,'Rectangle',[145,92,18,18]);
-%I = insertShape(I,'Rectangle',[27,98,18,18]);
-
-
-imshow(I)
-
 box_length=40;
 scratch_x=127;
 scratch_y=81;
 speckle_x=23;
 speckle_y=86;
 
-pause;
-figure(1), imshow(BW);
-figure(2), imshow(I);
-pause;
+
 scratch=I(scratch_y:scratch_y+box_length,scratch_x:scratch_x+box_length);
 speckle=I(speckle_y:speckle_y+box_length,speckle_x:speckle_x+box_length);
 
-figure(1), imshow(scratch);
-figure(2), imshow(speckle);
-
-max_thres_i=100;
-max_thres=1;
-min_thres=0;
-dthres=(max_thres-min_thres)/max_thres_i;
-
-scratch_truth=zeros(max_thres_i,1);
-speckle_truth=zeros(max_thres_i,1);
-thresholds=zeros(max_thres_i,1);
-for i=1:max_thres_i
-   thres = min_thres+dthres*i;
-   threshold(i,1)=thres;
-   bw_scratch=im2bw(scratch,thres);
-   bw_speckle=im2bw(speckle,thres);
-   
-   scratch_truth(i,1)=truth(bw_scratch);
-   speckle_truth(i,1)=truth(bw_speckle);
-   
-end
-
-d1_scratch_truth=zeros(max_thres_i,1);
-d1_speckle_truth=zeros(max_thres_i,1);
-
-%Calculate numerical derivative for speckle truth and scratch truth
-
+[scratch_ttd,scratch_truth,scratch_thres]=calc_ttd(scratch);
+[speckle_ttd,speckle_truth,speckle_thres]=calc_ttd(speckle);
 
 figure
 s(1) = subplot(2,2,1);
-plot(threshold,scratch_truth)
+plot(scratch_thres,scratch_truth)
 ylabel('Scratch Truth')
 xlabel('Threshold');
 s(2) = subplot(2,2,2);
-plot(threshold,speckle_truth)
+plot(speckle_thres,speckle_truth)
 ylabel('Speckle Truth');
 xlabel('Threshold');
 s(3) = subplot(2,2,3);
@@ -95,4 +45,5 @@ imagesc(scratch)
 s(4) = subplot(2,2,4);
 imagesc(speckle)
 
-
+fprintf("Scratch TTD: %f\n",scratch_ttd);
+fprintf("Speckle TTD: %f\n",speckle_ttd);
