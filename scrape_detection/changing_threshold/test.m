@@ -40,12 +40,18 @@ speckle_polygon=[27,98;
 
 imshow(I)
 
+box_length=40;
+scratch_x=127;
+scratch_y=81;
+speckle_x=23;
+speckle_y=86;
+
 pause;
 figure(1), imshow(BW);
 figure(2), imshow(I);
 pause;
-scratch=I(92:110,145:162);
-speckle=I(98:116,27:44);
+scratch=I(scratch_y:scratch_y+box_length,scratch_x:scratch_x+box_length);
+speckle=I(speckle_y:speckle_y+box_length,speckle_x:speckle_x+box_length);
 
 figure(1), imshow(scratch);
 figure(2), imshow(speckle);
@@ -68,6 +74,12 @@ for i=1:max_thres_i
    speckle_truth(i,1)=truth(bw_speckle);
    
 end
+
+d1_scratch_truth=zeros(max_thres_i,1);
+d1_speckle_truth=zeros(max_thres_i,1);
+
+%Calculate numerical derivative for speckle truth and scratch truth
+
 
 figure
 s(1) = subplot(2,2,1);
