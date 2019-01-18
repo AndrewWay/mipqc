@@ -1,9 +1,19 @@
 ttd_image=MIP;
+imageDim1=size(ttd_image,1);
+imageDim2=size(ttd_image,2);
+
+min_ttd=0.20;
+max_ttd=max(ttd_values(:));
+high_ttd_color=[1,0,0];
+low_ttd_color=[0,0,0];
+imshow(ttd_image);
+hold on;
 
 for ii=1:regionCells_dim1
     img_pixel_j=1;
     for jj=1:regionCells_dim2
         ttd=ttd_values(ii,jj);
+        
         %Map the TTD to a color
         ttd_color_fact=(ttd-min_ttd)/max_ttd;
         if(ttd_color_fact<0)
@@ -13,22 +23,13 @@ for ii=1:regionCells_dim1
         end
         ttd_color=ttd_color_fact*high_ttd_color;
         
-        
-        
-        img_pixel_j=img_pixel_j+img_cell_dim2;
-        img_cell_dim1=size(img_cell,1);
-        img_cell_dim2=size(img_cell,2);
-        for k=img_pixel_i:img_pixel_i+img_cell_dim1
-            for l=img_pixel_j:img_pixel_j+img_cell_dim2
-                ttd_image(k,l,1)=ttd_color(1,1);
-                ttd_image(k,l,2)=ttd_color(1,2);
-                ttd_image(k,l,3)=ttd_color(1,3);
-                
-            end
+        if(ttd_color_fact>0)
+        [x1,x2,y1,y2] = sectionCorners(ii,jj,imageDim1/img_dim1Divisions,imageDim2/img_dim2Divisions);
+        rectangle('Position',[x1,y1,x2-x1,y2-y1],...
+            'Curvature',[0,0],...
+            'EdgeColor', ttd_color,...
+            'LineWidth', 1,...
+            'LineStyle','-')
         end
-        img_pixel_i=img_pixel_i+img_cell_dim1;
     end
 end
-
-figure(1), imshow(ttd_image)
-figure(2), imshow(MIP)
