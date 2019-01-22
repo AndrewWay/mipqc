@@ -33,9 +33,9 @@ feature_vector(1,16)=blob(mat,0.6);
 feature_vector(1,17)=blob(mat,0.7);
 feature_vector(1,18)=blob(mat,0.8);
 feature_vector(1,19)=blob(mat,0.9);
+feature_vector(1,20)=calc_ttd(mat);
 
-
-if(nFeatures<19)
+if(nFeatures<20)
    fprintf("WARNING: Number of features less than feature vector size\n"); 
 end
 

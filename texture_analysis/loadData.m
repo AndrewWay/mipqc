@@ -10,7 +10,7 @@ img_dim1Divisions=40;
 img_dim2Divisions=40;
 
 
-nFeatures=19;
+nFeatures=20;
 
 
 %each row in data corresponds to the same row in imageCells. 
