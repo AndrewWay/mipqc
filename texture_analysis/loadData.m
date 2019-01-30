@@ -6,12 +6,11 @@ clear all;
 
 %PARAMETERS
 numOfImages=9;
-img_dim1Divisions=40;
-img_dim2Divisions=40;
+img_dim1Divisions=80;
+img_dim2Divisions=80;
 
 
 nFeatures=20;
-
 
 %each row in data corresponds to the same row in imageCells. 
 data = [];%matrix with each row being an observation.
@@ -21,7 +20,7 @@ image_cells = [];%column vector containing cells of images
 for k=1:numOfImages
     pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
     if exist(pngFileName, 'file')
-        disp(pngFileName);
+	
         %Read MIP image to matrix
         I = imread(pngFileName);
         
