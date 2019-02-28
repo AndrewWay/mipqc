@@ -1,3 +1,5 @@
+close all;
+
 nObs=size(W,1);
 
 mapIndices = zeros(nObs,2);

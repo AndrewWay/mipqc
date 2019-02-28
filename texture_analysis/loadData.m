@@ -56,7 +56,7 @@ for k=1:numOfImages
     end
 end
 
-zdata=zscore(data);%Use this data to usze correlation matrix in PCA
+zdata=zscore(data);%Use this data to use correlation matrix in PCA
 
 [coeff,score,latent,~,explained] = pca(zdata);
 tCoeff=coeff(:,1:4);
