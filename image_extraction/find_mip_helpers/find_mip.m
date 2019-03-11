@@ -79,7 +79,7 @@ function [lines11,lines22,E] = find_mip(I)
 %     pause; 
 %     close all;
     %find the set of lines that form the best rectangle
-    [lines11,lines22] = find_rectangle(lines1,lines2);
+    [lines11,lines22] = find_rectangle(lines1,lines2,I);
 %     fprintf("%s\n","line 80, find_mip");
 %     figure(1), imshow(draw_lines(lines11,lines22,I));
 %     pause;
