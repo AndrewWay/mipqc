@@ -65,16 +65,19 @@ function [lines11,lines22,E] = find_mip(I)
     
 %     % Show the two sets of lines.
 %     figure(12), imshow(E), title('Orthogonal lines');
-%     drawLines( lines1(2,:), ... % rhos for the lines
+%     draw_lines( lines1(2,:), ... % rhos for the lines
 %         lines1(1,:), ... % thetas for the lines
 %         size(E), ... % size of image being displayed
 %         'g'); % color of line to display
 %     
-%     drawLines( lines2(2,:), ... % rhos for the lines
+%     
+%     draw_lines( lines2(2,:), ... % rhos for the lines
 %         lines2(1,:), ... % thetas for the lines
 %         size(E), ... % size of image being displayed
 %         'r'); % color of line to display
-
+% 
+%     pause; 
+%     close all;
     %find the set of lines that form the best rectangle
     [lines11,lines22] = find_rectangle(lines1,lines2);
 %     fprintf("%s\n","line 80, find_mip");

@@ -5,9 +5,9 @@ nPics=8;
 for i=1:20
     
     scores = zdata*coeff(:,i);
-    [B,I] = sort(scores,'descend');
+    [B,I] = sort(scores,'ascend');
     
-    suptitle(['Top ',num2str(nPics),' scoring cells for PC',num2str(i)]);
+    suptitle(['Worst',num2str(nPics),' scoring cells for PC',num2str(i)]);
     
     j=1;
     img_index = I(j);
@@ -53,7 +53,7 @@ for i=1:20
     img_index = I(j);
     cell_img = cell2mat(image_cells(img_index,1));
     subplot(3,3,9),imshow(cell_img);
-    title("Worst scoring cell");
+    title("Best scoring cell");
     
     
     pause;

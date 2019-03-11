@@ -3,8 +3,8 @@
 
 %Initialize SOM
 %Set each vector in the SOM to a vector of random weights
-som_dim1 = 20;
-som_dim2 = 20;
+som_dim1 = 30;
+som_dim2 = 30;
 
 net = selforgmap([som_dim1 som_dim2]);
 
