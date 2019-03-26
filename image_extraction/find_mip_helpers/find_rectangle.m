@@ -1,4 +1,4 @@
-function [lines11, lines22] = find_rectangle(lines1,lines2,I)
+function [lines11, lines22] = find_rectangle(lines1,lines2,I,scale_factor)
 nLines1=size(lines1,2);
 nLines2=size(lines2,2);
 %fprintf("NOTE: The expected lengths for MIPs are being set in find_rectangle\n");

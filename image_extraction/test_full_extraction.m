@@ -5,7 +5,7 @@ close all
 %I = imread('data/C/C10t.jpg');
 %I=I(:,981:3579,:);
 
-I=imread('data/B/MIP11_original.jpg');
+I=imread('data/MSC FINAL DATA/D1.png');
 %I=imread('data/B/MIP4.jpg');
 %I=imread('test_image.jpg');
 % Find the checkerboard. Return the four outer corners as a 4x2 array,

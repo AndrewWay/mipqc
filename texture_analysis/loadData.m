@@ -31,13 +31,14 @@ for k=1:numOfImages
         
         % Find and return the MIP.
         [MIP]=extract_mip(I);
+    
         regionCells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
         regionCells_dim1=size(regionCells,1);
         regionCells_dim2=size(regionCells,1);
         %MIP=I;
-%         figure(1),imshow(MIP);
-%         pause;
-%         close(figure(1));
+        figure(1),imshow(MIP);
+        pause;
+        %close(figure(1));
         %Use the following line if you don't want tom  extract
         %MIP=I;
         

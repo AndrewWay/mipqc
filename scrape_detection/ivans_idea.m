@@ -1,8 +1,10 @@
+
 %Calculate truth of cell at threshold=0.75
 %If truth greater than 0.1, flag
 
 close all;
-
+img_dim1Divisions=40;
+img_dim2Divisions=40;
 regionCells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
 
 imshow(MIP);
