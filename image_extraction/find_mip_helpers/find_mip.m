@@ -1,4 +1,4 @@
-function [lines11,lines22,E] = find_mip(I,scale_factor)
+function [lines11,lines22,E,success] = find_mip(I,scale_factor)
 %FIND_MIP Finds the region of an image that contains a MIP
     fprintf('%s\n','Running MIP extraction routine...');
     I0=I;
@@ -84,6 +84,10 @@ function [lines11,lines22,E] = find_mip(I,scale_factor)
 %     figure(1), imshow(draw_lines(lines11,lines22,I));
 %     pause;
 %     close(figure(1));
+if(isempty(lines11)||isempty(lines22))
+    fprintf("ERROR: find_mip failed to find the MIP.\n");
+    success=0;
+else
     [lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     %find the outer pair of lines
@@ -134,5 +138,5 @@ function [lines11,lines22,E] = find_mip(I,scale_factor)
 %     
 %     plot(xIntersections(:),yIntersections(:),'s', 'MarkerSize',10, 'MarkerFaceColor','r');
 %     hold off
-
+end
 end

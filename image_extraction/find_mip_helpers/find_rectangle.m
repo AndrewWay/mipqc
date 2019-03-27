@@ -35,8 +35,12 @@ for i=1:nLines1
                 rl=lines2(2,l);
                 [xints,yints]=find_intersections([linei,linej],[linel linek]);
                 [surface_area]=calc_surface_area(xints,yints);
+                surface_area=scale_factor*surface_area;
                 [si,sj,sk,sl]=calc_sides_lengths(linei,linej,linek,linel);
-                
+                si=scale_factor*si;
+                sj=scale_factor*sj;
+                sk=scale_factor*sk;
+                sl=scale_factor*sl;
                 [area_grade]=grade_surface_area(surface_area);
                 [angle_grade]=grade_angles(ti,tj,tk,tl);
                 [aspect_grade]=grade_aspect(si,sj,sk,sl);
@@ -65,8 +69,13 @@ for i=1:nLines1
         end
     end
 end
-    fprintf("Optimal indices: %f %f %f %f\n",iOpt,jOpt,kOpt,lOpt);
+   % fprintf("Optimal indices: %f %f %f %f\n",iOpt,jOpt,kOpt,lOpt);
 %     %Create optimal set of lines
-lines11=[lines1(:,iOpt) lines1(:,jOpt)];
-lines22=[lines2(:,kOpt) lines2(:,lOpt)];
+if(iOpt>0&&jOpt>0&&kOpt>0&&lOpt>0)
+    lines11=[lines1(:,iOpt) lines1(:,jOpt)];
+    lines22=[lines2(:,kOpt) lines2(:,lOpt)];
+else
+    lines11=[];
+    lines22=[];
+end
 end

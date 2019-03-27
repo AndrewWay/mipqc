@@ -14,8 +14,10 @@ else
 end
 
 %Retrieve the sets of lines enclosing the MIP in image I
-[lines11,lines22,mip_edge] = find_mip(I,scale_factor);
+[lines11,lines22,mip_edge,success] = find_mip(I,scale_factor);
 %draw_lines(lines11,lines22,I);
+if(success)
+
 
 % Intersect the outer pair of lines, one from set 1 and one from set 2.
 % Output is the x,y coordinates of the intersections:
@@ -54,6 +56,10 @@ close(figure(1));
 
 %Extract the scaled, leveled MIP
 extracted_mip = extract_rectangle(leveled_I0,px1,py1,px2,py2);
+
+else
+    extracted_mip=0;
+end
 
 end
 

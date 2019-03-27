@@ -78,8 +78,8 @@ for i=1:nLines1
         %rho > line11_2 rho
         if((r_i<lines11(2,1)&&r_i>lines11(2,2))...
                 ||(r_i<lines11(2,2)&&r_i>lines11(2,1)))
-            fprintf("%s\n",...
-                'Line 76, filter_white_blocks. Lines Parallel. New line is within rectangle.');
+          %  fprintf("%s\n",...
+          %      'Line 76, filter_white_blocks. Lines Parallel. New line is within rectangle.');
             %Find the line from lines11 that line1_i is closest to
             if(abs(r_i-lines11(2,1))<abs(r_i-lines11(2,2)))
                 %Replace lines11(:,2) with line1_i

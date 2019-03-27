@@ -2,7 +2,7 @@
 function[grade] = grade_aspect(si,sj,sk,sl)
 
 grade_max=1;
-aspect_mid=1.7;
+aspect_mid=1.61;
 aspect_dev=0.2;
 aspect_min=aspect_mid-aspect_dev;
 aspect_max=aspect_mid+aspect_dev;
