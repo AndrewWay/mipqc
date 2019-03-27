@@ -45,7 +45,7 @@ for i=1:nLines1
                 [angle_grade]=grade_angles(ti,tj,tk,tl);
                 [aspect_grade]=grade_aspect(si,sj,sk,sl);
                 
-                tmp_fit_grade=angle_grade+aspect_grade+area_grade;
+                tmp_fit_grade=3*angle_grade+aspect_grade+2*area_grade;
                 Itmp=I;
 %                 figure(3),imshow(draw_lines([linei,linej],[linel,linek],Itmp));
 %                 fprintf("--------------------------------------\n");

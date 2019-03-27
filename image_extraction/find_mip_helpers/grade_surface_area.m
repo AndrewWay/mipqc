@@ -6,7 +6,7 @@ max_area=4800000;
 best_area=4500000;
 max_score=1;
 min_score=0;
-punish_score=-max_score;
+punish_score=0;%-max_score;
 
 
 if(area<=min_area || area>=max_area)

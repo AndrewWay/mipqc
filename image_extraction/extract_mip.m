@@ -58,6 +58,7 @@ close(figure(1));
 extracted_mip = extract_rectangle(leveled_I0,px1,py1,px2,py2);
 
 else
+    marked_I=0;
     extracted_mip=0;
 end
 

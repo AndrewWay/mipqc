@@ -26,14 +26,14 @@ for k=6858:7008
             subplot(1,2,1), imshow(marked_I), title('Original Picture');
             subplot(1,2,2), imshow(MIP),title('Extracted MIP');
             
-            user_entry = input('Save the extracted MIP? (y/n)\n','s');
+           % user_entry = input('Save the extracted MIP? (y/n)\n','s');
            % close all;
-            if(strcmp('y',user_entry))
+           % if(strcmp('y',user_entry))
                 fprintf("Saving file.\n");
                 imwrite(MIP,outputFileName);
-            else
-                fprintf("File not saved.\n");
-            end
+           % else
+           %     fprintf("File not saved.\n");
+           % end
         else
             fprintf("MIP %d has already been processed. Skipping.\n",k);
         end

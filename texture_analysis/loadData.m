@@ -5,39 +5,34 @@ close all;
 clear all;
 
 %PARAMETERS
-numOfImages=8;
+startIndex=6858;
+stopIndex=6860;%7008;
+nImages = stopIndex-startIndex;
+
 img_dim1Divisions=40;
 img_dim2Divisions=40;
 
 nFeatures=20;
 
 %each row in data corresponds to the same row in imageCells. 
-data = [];%matrix with each row being an observation.
+nObservations=nImages*img_dim1Divisions*img_dim2Divisions;
+data = zeros(nObservations,nFeatures);%matrix with each row being an observation.
 image_cells = [];%column vector containing cells of images
 
 %Load images into memory
-for k=1:numOfImages
-    pngFileName = strcat('data/B/MIP', num2str(k), '.jpg');
+cellIndex=1;
+
+for k=startIndex:stopIndex
+    pngFileName=strcat('data/D/D', num2str(k), '.png');
     if exist(pngFileName, 'file')
-	
+        fprintf("Processing MIP D%d\n",k);
         %Read MIP image to matrix
-        I = imread(pngFileName);
-        
-% 
-%         figure(1), imshow(I);
-%         pause;
-%         close(figure(1));
-%         
-        
-        % Find and return the MIP.
-        [MIP]=extract_mip(I);
+        MIP = imread(pngFileName);
     
         regionCells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
         regionCells_dim1=size(regionCells,1);
         regionCells_dim2=size(regionCells,1);
-        %MIP=I;
-        figure(1),imshow(MIP);
-        pause;
+
         %close(figure(1));
         %Use the following line if you don't want tom  extract
         %MIP=I;
@@ -47,8 +42,9 @@ for k=1:numOfImages
                 cell=regionCells(ii,jj);
                 mat=cell2mat(cell);
                 feature_vector=create_feature_vector(mat,nFeatures);
-                data=[data;(feature_vector)];
+                data(cellIndex,:)=feature_vector;
                 image_cells=[image_cells;cell];
+                cellIndex=cellIndex+1;
             end
         end
     else
