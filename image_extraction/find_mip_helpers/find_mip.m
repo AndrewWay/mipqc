@@ -41,16 +41,16 @@ function [lines11,lines22,E,success] = find_mip(I,scale_factor)
 %         7, 7], 'EdgeColor', 'r');
 %     end
 %     pause
-    
-%     % Show all lines.
-%     figure(10), imshow(E), title('All lines');
-%     drawLines( ...
-%     rhoValues(peaks(:,1)), ... % rhos for the lines
-%     thetaValues(peaks(:,2)), ... % thetas for the lines
-%     size(E), ... % size of image being displayed
-%     'y'); % color of line to display
-%     %pause
 %     
+%     % Show all lines.
+    figure(10), imshow(E), title('All lines');
+    drawLines( ...
+    rhoValues(peaks(:,1)), ... % rhos for the lines
+    thetaValues(peaks(:,2)), ... % thetas for the lines
+    size(E), ... % size of image being displayed
+    'y'); % color of line to display
+    pause
+    
     
     % Find two sets of orthogonal lines.
     [lines1, lines2] = find_orthogonal_lines( ...
@@ -88,6 +88,7 @@ if(isempty(lines11)||isempty(lines22))
     fprintf("ERROR: find_mip failed to find the MIP.\n");
     success=0;
 else
+    success=1;
     [lines11,lines22] = filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     %find the outer pair of lines
@@ -140,3 +141,42 @@ else
 %     hold off
 end
 end
+
+function drawLines(rhos, thetas, imageSize, color)
+% This function draws lines on whatever image is being displayed.
+% Input parameters:
+% rhos,thetas: representation of the line (theta in degrees)
+% imageSize: [height,width] of image being displayed
+% color: color of line to draw
+% Equation of the line is rho = x cos(theta) + y sin(theta), or
+% y = (rho - x*cos(theta))/sin(theta)
+
+for i=1:length(thetas)
+%if majority of angles are >45 then line is is mostly horizontal. 
+%Pick two values of x, and solve for y = (-ax-c)/b
+%else the line is is mostly horizontal. Pick two values of y,
+% and solve for x
+
+%students write your code here
+theta=thetas(i)*pi/180;
+rho=rhos(i);
+a=cos(theta);
+c=-rho;
+b=sin(theta);
+if(theta>45)
+   x0=1;
+   x1=imageSize(2);
+   y0=(-a*x0-c)/b;
+   y1=(-a*x1-c)/b;
+else
+   y0=1;
+   y1=imageSize(2);
+   x0=(b*y0+c)/(-a);
+   x1=(b*y1+c)/(-a);
+end
+
+line([x0 x1], [y0 y1], 'Color', color);
+text(x0,y0,sprintf('%d', i), 'Color', color);
+end
+end
+

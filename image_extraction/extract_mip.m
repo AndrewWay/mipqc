@@ -1,4 +1,4 @@
-function [ extracted_mip ] = extract_mip( I0 )
+function [ extracted_mip ,marked_I] = extract_mip( I0 )
 %EXTRACT_MIP Returns the region of an image that contains a MIP
 
 %Rescale the image if necessary. High resolution is not necessary and 
@@ -17,7 +17,7 @@ end
 [lines11,lines22,mip_edge,success] = find_mip(I,scale_factor);
 %draw_lines(lines11,lines22,I);
 if(success)
-
+marked_I = draw_lines(lines11,lines22,I);
 
 % Intersect the outer pair of lines, one from set 1 and one from set 2.
 % Output is the x,y coordinates of the intersections:
