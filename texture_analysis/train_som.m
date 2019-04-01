@@ -4,10 +4,11 @@
 %Initialize SOM
 %Set each vector in the SOM to a vector of random weights
 numberOfNeurons = 5*sqrt(nObservations);
-som_dim1 = floor(sqrt(numberOfNeurons));
-som_dim2=som_dim1;
-% som_dim1 = 30;
-% som_dim2 = 30;
+%y is the longer side
+%x is the shorter side
+
+som_dim1 = ceil(sqrt(2*numberOfNeurons));
+som_dim2 = 0.5*som_dim1;
 
 net = selforgmap([som_dim1 som_dim2]);
 
