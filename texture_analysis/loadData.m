@@ -1,12 +1,10 @@
-%http://www.ai-junkie.com/ann/som/som4.html
-%Each node contains a vector of weights of the same dimension as input vecs
 
 close all;
 clear all;
 
 %PARAMETERS
 startIndex=6858;
-stopIndex=6860;%7008;
+stopIndex=6859;%7008;
 nImages = stopIndex-startIndex;
 
 img_dim1Divisions=40;
@@ -16,8 +14,8 @@ nFeatures=20;
 
 %each row in data corresponds to the same row in imageCells. 
 nObservations=nImages*img_dim1Divisions*img_dim2Divisions;
-data = zeros(nObservations,nFeatures);%matrix with each row being an observation.
-image_cells = [];%column vector containing cells of images
+data=[];% = zeros(nObservations,nFeatures);%matrix with each row being an observation.
+image_cells = [];%cell(nObservations,1);%column vector containing cells of images
 
 %Load images into memory
 cellIndex=1;
@@ -39,11 +37,13 @@ for k=startIndex:stopIndex
         
         for ii=1:regionCells_dim1
             for jj=1:regionCells_dim2
-                cell=regionCells(ii,jj);
-                mat=cell2mat(cell);
+                cell_ij=regionCells(ii,jj);
+                mat=cell2mat(cell_ij);
                 feature_vector=create_feature_vector(mat,nFeatures);
-                data(cellIndex,:)=feature_vector;
-                image_cells=[image_cells;cell];
+                %data(cellIndex,:)=feature_vector;
+                %image_cells(cellIndex)=cell_ij;
+                data=[data;feature_vector];
+                image_cells=[image_cells;cell_ij];
                 cellIndex=cellIndex+1;
             end
         end

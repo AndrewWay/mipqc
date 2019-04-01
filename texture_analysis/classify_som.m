@@ -1,5 +1,5 @@
 close all;
-pngFileName = strcat('data/B/MIP9.jpg');
+pngFileName = strcat('data/D/D6943.png');
 if exist(pngFileName, 'file')
     
     %Read into MIP image to matrices

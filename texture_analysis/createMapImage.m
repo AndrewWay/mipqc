@@ -11,11 +11,11 @@ nCells = size(rgbCells,1);
 
 %Find the largest dimensions of all cells
 [s,d] = cellfun(@size,rgbCells);
-out = max([s,d]);
+out = mean([s,d]);
 
 %find maximum cell dimensions
-regionPxsize1=36;%out(1,1);
-regionPxsize2=56;%out(1,2);
+regionPxsize1=floor(out(1,1));
+regionPxsize2=69;%floor(out(1,2));
 
 im =  zeros(som_size1*regionPxsize1,som_size2*regionPxsize2,3);
 
