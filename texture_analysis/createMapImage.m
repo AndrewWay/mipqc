@@ -1,4 +1,4 @@
-function [im] = createMapImage( rgbCells, mappingIndices)
+function [im] = createMapImage( rgbCells, mappingIndices,classifier)
 %CREATEMAPIMAGE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -36,9 +36,13 @@ for i=1:nCells
         
         for k=1:rgbMatSize1
             for l=1:rgbMatSize2
-                im(k+px_shift1,l+px_shift2,1)=rgbMat(k,l,1);
-                im(k+px_shift1,l+px_shift2,2)=rgbMat(k,l,2);
-                im(k+px_shift1,l+px_shift2,3)=rgbMat(k,l,3);
+                if(k==1)
+                    
+                else
+                    im(k+px_shift1,l+px_shift2,1)=rgbMat(k,l,1);
+                    im(k+px_shift1,l+px_shift2,2)=rgbMat(k,l,2);
+                    im(k+px_shift1,l+px_shift2,3)=rgbMat(k,l,3);
+                end
                 
             end
         end

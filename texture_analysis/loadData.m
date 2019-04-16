@@ -4,7 +4,7 @@ clear all;
 
 %PARAMETERS
 startIndex=6858;
-stopIndex=6859;%7008;
+stopIndex=6908;%7008;
 nImages = stopIndex-startIndex;
 
 img_dim1Divisions=40;
