@@ -1,0 +1,10 @@
+function [color] = classLabelToColor(classLabel)
+%CLASSLABELTOCOLOR Summary of this function goes here
+%   Detailed explanation goes here
+if(classLabel == 0)
+    
+else if(classLabel == 1)
+        
+    else if(classLabel = 
+end
+

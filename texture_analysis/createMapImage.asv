@@ -42,18 +42,13 @@ for i=1:nCells
                 im(k_index,l_index,1)=rgbMat(k,l,1);
                 im(k_index,l_index,2)=rgbMat(k,l,2);
                 im(k_index,l_index,3)=rgbMat(k,l,3);
-                %Add additional highlighting if classifier matrix defined
                 if(exist('classifier','var'))
-                    classLabel = classifier(mapIndex1,mapIndex2);
-                    color = classLabelToColor(classLabel);
                     if(k==1||l==1)
-                        im(k_index,l_index,1)=color(1);
-                        im(k_index,l_index,2)=color(2);
-                        im(k_index,l_index,3)=color(3);
-                    elseif(k==rgbMatSize1||l==rgbMatSize2)
-                        im(k_index,l_index,1)=color(1);
-                        im(k_index,l_index,2)=color(2);
-                        im(k_index,l_index,3)=color(3);
+                        color = classifier(
+                        im(k_index,l_index,1)=rgbMat(k,l,1);
+                        im(k_index,l_index,2)=rgbMat(k,l,2);
+                        im(k_index,l_index,3)=rgbMat(k,l,3);
+                        
                     end
                 end
             end
