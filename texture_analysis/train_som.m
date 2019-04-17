@@ -3,9 +3,10 @@
 
 %Initialize SOM
 %Set each vector in the SOM to a vector of random weights
-numberOfNeurons = 5*sqrt(nObservations);
-som_dim1 = floor(sqrt(numberOfNeurons));
-som_dim2=som_dim1;
+numberOfNeurons = 2*(5*sqrt(nObservations));
+som_dim1 = floor(sqrt(2*numberOfNeurons));
+som_dim2=floor(som_dim1/2);
+
 % som_dim1 = 30;
 % som_dim2 = 30;
 
