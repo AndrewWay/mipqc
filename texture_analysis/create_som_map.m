@@ -14,5 +14,8 @@ for i=1:nObs
     mapIndices(i,1)=I;
     mapIndices(i,2)=J;
 end
-
-createMapImage(image_cells,mapIndices);
+if(exist('classifier','var'))
+    createMapImage(image_cells,mapIndices,classifier);
+else
+    createMapImage(image_cells,mapIndices); 
+end
