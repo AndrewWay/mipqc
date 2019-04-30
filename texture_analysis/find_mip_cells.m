@@ -24,16 +24,18 @@ if exist(pngFileName, 'file')
     fprintf("Creating uData...\n");
     
     index=1;
-    new_cells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
+    img_dim1Divs=80;
+    img_dim2Divs=80;
+    new_cells = dice(MIP,img_dim1Divs,img_dim2Divs);
     neuron_matrix = cell2mat(net.IW);
     %Find BMU
     imshow(MIP);
     hold on;
-    distances=zeros(img_dim1Divisions,img_dim2Divisions);
+    distances=zeros(img_dim1Divs,img_dim2Divs);
     y1=1;
-    for i=1:img_dim1Divisions
+    for i=1:img_dim1Divs
         x1=1;
-        for j=1:img_dim2Divisions
+        for j=1:img_dim2Divs
             img_ij=cell2mat(new_cells(i,j));
             
             dim1_ij=size(img_ij,1);
@@ -53,6 +55,7 @@ if exist(pngFileName, 'file')
             %clusterIndex=findBMU(featVec',cell2mat(net.IW));
             [in,jn]=ind2sub([som_dim1,som_dim2],clusterIndex);
             bmu_distance = norm(neuron_matrix(clusterIndex)-featVec);
+            %You may plot the distances matrix as a contour plot.
             distances(i,j)=bmu_distance;
             
             if(bmu_distance>4)

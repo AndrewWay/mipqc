@@ -6,24 +6,19 @@ if exist(pngFileName, 'file')
     I = imread(pngFileName);
     
     % Find and return the MIP.
-    [MIP]=extract_mip(I);
-    figure(1),imshow(MIP);
+    %[MIP]=extract_mip(I);
+    %figure(1),imshow(MIP);
     figure(2),imshow(I);
     pause;
     close all;
     %Use the following line if you don't want to extract
-    % MIP=I;
+    MIP=I;
     
     imageDim1 = size(MIP,1);
     imageDim2 = size(MIP,2);
     
     fprintf("Creating uData...\n");
-%     %Dice the matrix into regions
-%     uData=createFeatVecs(MIP,nFeatures,img_dim1Divisions,img_dim2Divisions);
-%     %mip_cells=dice(MIP,img_dim1Divisions,img_dim2Divisions);
-%     
-%     uData=uData*tCoeff;%Transform unknown data
-% %     
+
     index=1;
     new_cells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
     
@@ -31,9 +26,9 @@ if exist(pngFileName, 'file')
     imshow(MIP);
     hold on;
     y1=1;
-    for i=1:img_dim1Divisions
+    for i=1:img_dim1Divisions1
         x1=1;
-        for j=1:img_dim2Divisions
+        for j=1:img_dim1Divisions2
             img_ij=cell2mat(new_cells(i,j));
             
             dim1_ij=size(img_ij,1);

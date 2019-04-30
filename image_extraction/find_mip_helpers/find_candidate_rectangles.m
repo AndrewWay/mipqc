@@ -1,7 +1,7 @@
-function [outputArg1,outputArg2] = find_candidate_rectangles(lines11_lines22,scale_factor)
+function [outputArg1,outputArg2] = find_candidate_rectangles(lines11,lines22,scale_factor)
 %FIND_CANDIDATE_RECTANGLES Summary of this function goes here
 %   Detailed explanation goes here
-max_number_of_candidates = 4;
+
 nLines1=size(lines11,2);
 nLines2=size(lines22,2);
 %grade lines
