@@ -33,19 +33,8 @@ for i=1:nLines1
                 linel=lines2(:,l);
                 tl=lines2(1,l);
                 rl=lines2(2,l);
-                [xints,yints]=find_intersections([linei,linej],[linel linek]);
-                [surface_area]=calc_surface_area(xints,yints);
-                surface_area=scale_factor*surface_area;
-                [si,sj,sk,sl]=calc_sides_lengths(linei,linej,linek,linel);
-                si=scale_factor*si;
-                sj=scale_factor*sj;
-                sk=scale_factor*sk;
-                sl=scale_factor*sl;
-                [area_grade]=grade_surface_area(surface_area);
-                [angle_grade]=grade_angles(ti,tj,tk,tl);
-                [aspect_grade]=grade_aspect(si,sj,sk,sl);
                 
-                tmp_fit_grade=3*angle_grade+aspect_grade+2*area_grade;
+                [tmp_fit_grade]=grade_rectangle([linei,linej],[linel,linek],scale_factor);
                 Itmp=I;
 %                 figure(3),imshow(draw_lines([linei,linej],[linel,linek],Itmp));
 %                 fprintf("--------------------------------------\n");
