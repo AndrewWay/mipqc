@@ -1,4 +1,4 @@
-function [candidates] = find_candidate_rectangles(lines1,lines2,scale_factor)
+function [candidates] = find_candidate_rectangles(lines1,lines2)
 %FIND_CANDIDATE_RECTANGLES Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -16,7 +16,7 @@ for i=1:nLines1
             for l=k+1:nLines2
                 linel=lines2(:,l);
                 
-                [tmp_fit_grade]=grade_rectangle([linei,linej],[linel,linek],scale_factor);
+                [tmp_fit_grade]=grade_rectangle([linei,linej],[linel,linek]);
                 candidates=[candidates;i,j,k,l,tmp_fit_grade];
 
                 

@@ -56,11 +56,10 @@ if exist(pngFileName, 'file')
             %             end
             %clusterIndex=findBMU(featVec',cell2mat(net.IW));
             [in,jn]=ind2sub([som_dim1,som_dim2],clusterIndex);
-            bmu_distance = norm(neuron_matrix(clusterIndex)-featVec);
-            distances=[distances;bmu_distance];
+            bmu_distance = norm(neuron_matrix(clusterIndex)-featVec,2);
+            distances(i,j)=bmu_distance;
             
             if(bmu_distance>4)
-                fprintf("%3d ",clusterIndex);
                 rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
                     'Curvature',[0,0],...
                     'EdgeColor', [1,0,0],...
@@ -80,7 +79,15 @@ if exist(pngFileName, 'file')
     
     %Extraction process
     %Retrieve the sets of lines enclosing the MIP in image I
-    scale_factor=1;
+    
+    [lines1,lines2] = find_vertical_and_horizontal_lines(I);
+    
+    [candidate_rectangles] = find_candidate_rectangles(lines1,lines2,1);
+    
+    %Iterate
+    for i=1:size(candidate_rectangles,1)
+        
+    end
     %[lines11,lines22,mip_edge,success] = find_mip(MIP,scale_factor);
     %[xIntersections, yIntersections] = find_intersections(...
     %lines11,lines22);
