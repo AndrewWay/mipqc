@@ -7,6 +7,16 @@ if size(I,3)>1
     I = rgb2gray(I);
 end
 
+%Rescale the image if necessary. High resolution is not necessary and
+%increases computation time.
+scale_factor=1;
+
+if size(I,2)>640
+    scale_factor=size(I,2)/640;
+    I = imresize(I, 640/size(I,2));
+end
+
+
 % Do edge detection using canny.
 %try different thresholds (0.5thresh - 5 thresh) to get clean edges
 
@@ -68,6 +78,13 @@ else
     % right (for vertical lines).
     lines1 = sort_lines(lines1);
     lines2 = sort_lines(lines2);
+    
+    
+    %Scale the Hough Lines
+    lines1(2,:)=scale_factor*lines1(2,:);
+    lines2(2,:)=scale_factor*lines2(2,:);
+
+    
 end
 end
 

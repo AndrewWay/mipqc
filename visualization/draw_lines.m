@@ -22,7 +22,7 @@ lines=[xInts(1,1),yInts(1,1),xInts(1,2),yInts(1,2);
 % set(line(line3(1,:),line3(2,:),'linewidth',2,'color',[0,0,1]));
 % set(line(line4(1,:),line4(2,:),'linewidth',2,'color',[1,1,0]));
 
-I=insertShape(I,'Line',lines);
+I=insertShape(I,'Line',lines,'LineWidth',6,'Color','green');
 
 end
 

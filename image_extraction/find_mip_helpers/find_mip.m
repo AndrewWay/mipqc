@@ -1,7 +1,6 @@
-function [lines11,lines22,success] = find_mip(I,scale_factor)
+function [lines11,lines22,success] = find_mip(I)
 %FIND_MIP Finds the region of an image that contains a MIP
 fprintf('%s\n','Running MIP extraction routine...');
-I0=I;
 
 
 [lines1,lines2]=find_vertical_and_horizontal_lines(I);
@@ -10,7 +9,6 @@ if(isempty(lines1)||isempty(lines2))
     success=0;
     lines11=0;
     lines22=0;
-    E=0;
 else
     
     %     % Show the two sets of lines.
@@ -31,7 +29,7 @@ else
     %find the set of lines that form the best rectangle
     
 
-    [lines11,lines22] = find_rectangle(lines1,lines2,I,scale_factor);
+    [lines11,lines22] = find_rectangle(lines1,lines2,I);
     %     fprintf("%s\n","line 80, find_mip");
     %     figure(1), imshow(draw_lines(lines11,lines22,I));
     %     pause;

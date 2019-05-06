@@ -1,9 +1,11 @@
 function [ grade ] = grade_surface_area( area )
 %GRADE_SURFACE_AREA Summary of this function goes here
 %   Detailed explanation goes here
-min_area=4200000;
-max_area=4800000;
-best_area=4500000;
+margin_of_error=18.5;%millimeter squared
+best_area=188.5;%millimeter squared
+min_area=best_area-margin_of_error;% millimeter squared
+max_area=best_area+margin_of_error;%millimeter squared
+
 max_score=1;
 min_score=0;
 punish_score=0;%-max_score;
