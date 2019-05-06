@@ -1,5 +1,9 @@
 %Determines what cells are "mip-like"
 
+
+number_of_image_divs1 = 40;
+number_of_image_divs2 = 40;
+
 close all;
 %pngFileName = strcat('data/D/D6943.png');
 pngFileName = strcat('A:/MSC FINAL DATA/jpeg/D6888.jpg');
@@ -24,16 +28,16 @@ if exist(pngFileName, 'file')
     fprintf("Creating uData...\n");
     
     index=1;
-    new_cells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
+    new_cells = dice(MIP,number_of_image_divs1,number_of_image_divs2);
     neuron_matrix = cell2mat(net.IW);
     %Find BMU
     imshow(MIP);
     hold on;
-    distances=zeros(img_dim1Divisions,img_dim2Divisions);
+    distances=zeros(number_of_image_divs1,number_of_image_divs2);
     y1=1;
-    for i=1:img_dim1Divisions
+    for i=1:number_of_image_divs1
         x1=1;
-        for j=1:img_dim2Divisions
+        for j=1:number_of_image_divs2
             img_ij=cell2mat(new_cells(i,j));
             
             dim1_ij=size(img_ij,1);
@@ -52,11 +56,10 @@ if exist(pngFileName, 'file')
             %             end
             %clusterIndex=findBMU(featVec',cell2mat(net.IW));
             [in,jn]=ind2sub([som_dim1,som_dim2],clusterIndex);
-            bmu_distance = norm(neuron_matrix(clusterIndex)-featVec);
-            distances=[distances;bmu_distance];
+            bmu_distance = norm(neuron_matrix(clusterIndex)-featVec,2);
+            distances(i,j)=bmu_distance;
             
             if(bmu_distance>4)
-                fprintf("%3d ",clusterIndex);
                 rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
                     'Curvature',[0,0],...
                     'EdgeColor', [1,0,0],...
@@ -77,11 +80,12 @@ if exist(pngFileName, 'file')
     %Extraction process
     %Retrieve the sets of lines enclosing the MIP in image I
     scale_factor=1;
-    [lines11,lines22,mip_edge,success] = find_mip(MIP,scale_factor);
-    [xIntersections, yIntersections] = find_intersections(...
-    lines11,lines22);
+    %[lines11,lines22,mip_edge,success] = find_mip(MIP,scale_factor);
+    %[xIntersections, yIntersections] = find_intersections(...
+    %lines11,lines22);
     
-
+    
+    
 else
     fprintf("File does not exist.\n");
 end
