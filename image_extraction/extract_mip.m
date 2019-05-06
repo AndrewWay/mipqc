@@ -14,7 +14,7 @@ else
 end
 
 %Retrieve the sets of lines enclosing the MIP in image I
-[lines11,lines22,mip_edge,success] = find_mip(I,scale_factor);
+[lines11,lines22,success] = find_mip(I,scale_factor);
 %draw_lines(lines11,lines22,I);
 if(success)
 marked_I = draw_lines(lines11,lines22,I);
