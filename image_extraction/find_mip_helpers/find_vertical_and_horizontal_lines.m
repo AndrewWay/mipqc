@@ -1,5 +1,12 @@
 function [lines1,lines2] = find_vertical_and_horizontal_lines(I)
 %FIND_VERTICAL_AND_HORIZONTAL_LINES Summary of this function goes here
+imshow(I);
+pause;
+
+if size(I,3)>1
+    I = rgb2gray(I);
+end
+
 % Do edge detection using canny.
 %try different thresholds (0.5thresh - 5 thresh) to get clean edges
 
@@ -53,5 +60,14 @@ peaks = houghpeaks(H,nPeaks,'Threshold',myThresh);
     rhoValues(peaks(:,1)), ... % rhos for the lines
     thetaValues(peaks(:,2))); % thetas for the lines
 %pause
+if(isempty(lines1)||isempty(lines2))
+    disp("isempty");
+else
+    disp("sorting");
+    % Sort the lines, from top to bottom (for horizontal lines) and left to
+    % right (for vertical lines).
+    lines1 = sort_lines(lines1);
+    lines2 = sort_lines(lines2);
+end
 end
 

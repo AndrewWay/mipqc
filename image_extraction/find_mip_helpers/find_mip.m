@@ -2,9 +2,6 @@ function [lines11,lines22,success] = find_mip(I,scale_factor)
 %FIND_MIP Finds the region of an image that contains a MIP
 fprintf('%s\n','Running MIP extraction routine...');
 I0=I;
-if size(I,3)>1
-    I = rgb2gray(I);
-end
 
 
 [lines1,lines2]=find_vertical_and_horizontal_lines(I);
@@ -15,10 +12,6 @@ if(isempty(lines1)||isempty(lines2))
     lines22=0;
     E=0;
 else
-    % Sort the lines, from top to bottom (for horizontal lines) and left to
-    % right (for vertical lines).
-    lines1 = sort_lines(lines1);
-    lines2 = sort_lines(lines2);
     
     %     % Show the two sets of lines.
     %     figure(12), imshow(E), title('Orthogonal lines');
