@@ -3,8 +3,8 @@ function [error_image] = create_mip_error_image(I,SOM,nFeatures,zmu,zsigma,tCoef
 %classifying image subsections to best matching unit in som
 
 
-number_of_image_divs1 = 100;
-number_of_image_divs2 = 100;
+number_of_image_divs1 = 80;
+number_of_image_divs2 = 80;
 
 fprintf("Creating uData...\n");
 
@@ -37,7 +37,6 @@ for i=1:number_of_image_divs1
     y1=y1+dim1_ij;
 end
 
-distances=floor(255*(1-distances/max(distances(:))));
 error_image = zeros(size(I,1),size(I,2));
 y1=1;
 for i=1:number_of_image_divs1
