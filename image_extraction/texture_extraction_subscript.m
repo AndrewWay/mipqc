@@ -1,6 +1,6 @@
 %ONLY RUNS IF TEXTURE_BASED_EXTRACTION.M PREVIOUSLY EXECUTED
 
-
+close all;
 %Extraction process
 %Retrieve the sets of lines enclosing the MIP in image I
 
@@ -10,6 +10,7 @@
 
 %Iterate through all candidate rectangles
 best_rectangle_error=inf;
+best_candidate=-1;
 for i=1:size(candidate_rectangles,1)
     i_index=candidate_rectangles(i,1);
     j_index=candidate_rectangles(i,2);
@@ -17,29 +18,31 @@ for i=1:size(candidate_rectangles,1)
     l_index=candidate_rectangles(i,4);
     
     candidate_score = candidate_rectangles(i,5);
-    if(candidate_score>4)
+    n_cells_in_candidate_rectangle=0;
+    if(candidate_score>3)
         
         [xIntersections, yIntersections] = find_intersections(...
             [lines1(:,i_index),lines1(:,j_index)],...
             [lines2(:,k_index),lines2(:,l_index)]);
         
-        fprintf("Intersections: \n");
-        disp(xIntersections);
-        disp(yIntersections);
+        % fprintf("Intersections: \n");
+        % disp(xIntersections);
+        % disp(yIntersections);
         %Add up all error from SOM cells within xIntersections
+        candidate_rectangle_size=0;
         rectangle_texture_error=0;
         y1=1;
         for j=1:number_of_image_divs1
             x1=1;
             for k=1:number_of_image_divs2
-                img_ij=cell2mat(new_cells(i,j));
+                img_ij=cell2mat(new_cells(j,k));
                 dim1_ij=size(img_ij,1);
                 dim2_ij=size(img_ij,2);
                 if(inpolygon(x1,y1,xIntersections(:),yIntersections(:)))
-                   % fprintf("%d,%d is in rectangle\n",x1,y1);
-                    rectangle_texture_error=rectangle_texture_error...
-                        +distances(j,k);
-                    
+                    % fprintf("%d,%d is in rectangle\n",x1,y1);
+                    rectangle_texture_error=rectangle_texture_error+distances(j,k);
+                    candidate_rectangle_size=candidate_rectangle_size+dim1_ij*dim2_ij;
+                    n_cells_in_candidate_rectangle=n_cells_in_candidate_rectangle+1;
                 end
                 x1=x1+dim2_ij;
                 index=index+1;
@@ -48,14 +51,63 @@ for i=1:size(candidate_rectangles,1)
         end
         
         %TODO NORMALIZE ACCORDING TO SIZE OF RECTANGLE
+        
+        
+        rectangle_texture_error=rectangle_texture_error/n_cells_in_candidate_rectangle;
+        
+        total_candidate_error = 5*(6-candidate_rectangles(i,5))/6+rectangle_texture_error;
+        
+        
         fprintf("Candidate texture error: %f\n",rectangle_texture_error);
-        if(rectangle_texture_error<best_rectangle_error)
-            candidate("best 
+        if(total_candidate_error<best_rectangle_error)
+            fprintf("New best candidate found.\n");
+            best_candidate=i;
+            best_rectangle_error=total_candidate_error;
         end
+        
+        
+        %DELETE FOLLOWING IF BLOCK AT SOME POINT
+        if(best_candidate>0)
+            iopt=candidate_rectangles(best_candidate,1);
+            jopt=candidate_rectangles(best_candidate,2);
+            kopt=candidate_rectangles(best_candidate,3);
+            lopt=candidate_rectangles(best_candidate,4);
+            first_line=lines1(:,iopt);
+            sec_line=lines1(:,jopt);
+            third_line=lines2(:,kopt);
+            fourth_line=lines2(:,lopt);
+            
+            figure(1),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
+            
+            %close all;
+        end
+        iopt=candidate_rectangles(i,1);
+        jopt=candidate_rectangles(i,2);
+        kopt=candidate_rectangles(i,3);
+        lopt=candidate_rectangles(i,4);
+        first_line=lines1(:,iopt);
+        sec_line=lines1(:,jopt);
+        third_line=lines2(:,kopt);
+        fourth_line=lines2(:,lopt);
+        
+        figure(2),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
+        pause;
+        %close all;
+        %DELETE ABOVE
     else
-        fprintf("Candidate rejected; geometry score too low..\n");
+        % fprintf("Candidate rejected; geometry score too low..\n");
     end
 end
-%[lines11,lines22,mip_edge,success] = find_mip(MIP,scale_factor);
-%[xIntersections, yIntersections] = find_intersections(...
-%lines11,lines22);
+
+
+iopt=candidate_rectangles(best_candidate,1);
+jopt=candidate_rectangles(best_candidate,2);
+kopt=candidate_rectangles(best_candidate,3);
+lopt=candidate_rectangles(best_candidate,4);
+first_line=lines1(:,iopt);
+sec_line=lines1(:,jopt);
+third_line=lines2(:,kopt);
+fourth_line=lines2(:,lopt);
+
+imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
+

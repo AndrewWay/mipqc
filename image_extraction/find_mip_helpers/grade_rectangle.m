@@ -24,7 +24,11 @@ tk=linek(1,1);
 [angle_grade]=grade_angles(ti,tj,tk,tl);
 [aspect_grade]=grade_aspect(si,sj,sk,sl);
 
-tmp_fit_grade=3*angle_grade+aspect_grade+2*area_grade;
+%Max angle grade: 1
+%Max aspect grade: 1
+%Max Area grade: 1
 
+tmp_fit_grade=3*angle_grade+aspect_grade+2*area_grade;
+%MAX TOTAL GRADE: 6
 end
 

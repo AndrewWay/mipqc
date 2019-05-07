@@ -38,8 +38,8 @@ E = edge(I,'canny',otsu_thresh);
 
 %TODO maybe. Find horizontal peaks, and then vertical peaks.
 %Students write your code here
-nPeaks = 10;
-myThresh = 0.2*max(H(:));
+nPeaks = 50;%usually 10.
+myThresh = 0.1*max(H(:));
 peaks = houghpeaks(H,nPeaks,'Threshold',myThresh);
 
 %Display Hough array and draw peaks on Hough array.
