@@ -1,6 +1,9 @@
 function [I] = remove_ruler(I)
-%REMOVE_RULER Summary of this function goes here
-%   Detailed explanation goes here
-
+%REMOVE_RULER Removes part of image containing ruler
+rotation_angle=0.7030;
+chop_height=2530;
+%Rotate image
+I=rotate_image(I,rotation_angle);
+I=I(1:chop_height,:,:);
 end
 

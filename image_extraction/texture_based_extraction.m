@@ -14,20 +14,30 @@ if exist(pngFileName, 'file')
     %
     %     % Find and return the MIP.
     %     %[MIP]=extract_mip(I);
-    MIP=I;
-    figure(1),imshow(MIP);
+    I=remove_ruler(I);
+    figure(1),imshow(I);
     
     pause;
     close all;
     %Use the following line if you don't want to extract
     
-   %TODO craete mip imge
+    number_of_image_divs1=60;
+    number_of_image_divs2=60;
+    texture_error_weight=2;
+    geometry_error_weight=2;
     
-contour(distances);
-pause;
     
-contour_based_extraction_subscript    
-%texture_extraction_subscript
+    
+    new_cells = dice(I,number_of_image_divs1,number_of_image_divs2);
+    
+    error_matrix = create_error_matrix(new_cells,net,nFeatures,zmu,zsigma,tCoeff);
+    total_texture_error=sum(error_matrix(:));
+    %Retrieve the sets of lines enclosing the MIP in image I
+    [lines1,lines2] = find_vertical_and_horizontal_lines(I);
+    
+    [candidate_rectangles] = find_candidate_rectangles(lines1,lines2);
+    
+    texture_extraction_subscript
     
 else
     fprintf("File does not exist.\n");

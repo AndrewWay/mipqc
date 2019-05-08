@@ -1,12 +1,8 @@
 %ONLY RUNS IF TEXTURE_BASED_EXTRACTION.M PREVIOUSLY EXECUTED
 
 close all;
-%Extraction process
-%Retrieve the sets of lines enclosing the MIP in image I
+%PARAMETERS
 
-[lines1,lines2] = find_vertical_and_horizontal_lines(I);
-
-[candidate_rectangles] = find_candidate_rectangles(lines1,lines2);
 
 %Iterate through all candidate rectangles
 best_rectangle_error=inf;
@@ -39,8 +35,8 @@ for i=1:size(candidate_rectangles,1)
                 dim1_ij=size(img_ij,1);
                 dim2_ij=size(img_ij,2);
                 if(inpolygon(x1,y1,xIntersections(:),yIntersections(:)))
-                    % fprintf("%d,%d is in rectangle\n",x1,y1);
-                    rectangle_texture_error=rectangle_texture_error+distances(j,k);
+
+                    rectangle_texture_error=rectangle_texture_error+error_matrix(j,k);
                     candidate_rectangle_size=candidate_rectangle_size+dim1_ij*dim2_ij;
                     n_cells_in_candidate_rectangle=n_cells_in_candidate_rectangle+1;
                 end
@@ -53,9 +49,9 @@ for i=1:size(candidate_rectangles,1)
         %TODO NORMALIZE ACCORDING TO SIZE OF RECTANGLE
         
         
-        rectangle_texture_error=rectangle_texture_error/n_cells_in_candidate_rectangle;
+        rectangle_texture_error=rectangle_texture_error/candidate_rectangle_size;
         
-        total_candidate_error = 5*(6-candidate_rectangles(i,5))/6+rectangle_texture_error;
+        total_candidate_error = geometry_error_weight*(6-candidate_rectangles(i,5))/6+texture_error_weight*rectangle_texture_error;
         
         
         fprintf("Candidate texture error: %f\n",rectangle_texture_error);
@@ -77,7 +73,7 @@ for i=1:size(candidate_rectangles,1)
             third_line=lines2(:,kopt);
             fourth_line=lines2(:,lopt);
             
-            figure(1),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
+    %        figure(1),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
             
             %close all;
         end
@@ -90,8 +86,8 @@ for i=1:size(candidate_rectangles,1)
         third_line=lines2(:,kopt);
         fourth_line=lines2(:,lopt);
         
-        figure(2),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
-        pause;
+ %       figure(2),imshow(draw_lines([first_line,sec_line],[third_line,fourth_line],I));
+ %       pause;
         %close all;
         %DELETE ABOVE
     else

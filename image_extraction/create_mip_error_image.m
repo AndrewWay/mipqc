@@ -9,7 +9,7 @@ number_of_image_divs2 = 100;
 fprintf("Creating uData...\n");
 
 new_cells = dice(I,number_of_image_divs1,number_of_image_divs2);
-neuron_matrix = cell2mat(SOM.IW);
+
 %Find BMU
 
 distances=zeros(number_of_image_divs1,number_of_image_divs2);
@@ -27,9 +27,9 @@ for i=1:number_of_image_divs1
         %MUST ZSCORE THIS DATA TO MATCH ZDATA (refer to loadData.m)
         featVec=(featVec-zmu)./zsigma;
         featVec = featVec*tCoeff;
-        clusterIndex=vec2ind(SOM(featVec'));
         
-        bmu_distance = norm(neuron_matrix(clusterIndex)-featVec,2);
+        bmu_distance=BMU_error(net,featVec);
+        
         distances(i,j)=bmu_distance;
         
         x1=x1+dim2_ij;
