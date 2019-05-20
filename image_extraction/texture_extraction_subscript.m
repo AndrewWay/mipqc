@@ -41,7 +41,6 @@ for i=1:size(candidate_rectangles,1)
                     n_cells_in_candidate_rectangle=n_cells_in_candidate_rectangle+1;
                 end
                 x1=x1+dim2_ij;
-                index=index+1;
             end
             y1=y1+dim1_ij;
         end

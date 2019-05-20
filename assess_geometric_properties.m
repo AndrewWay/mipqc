@@ -1,7 +1,6 @@
 clear all
 close all
 
-font_size=100;
 
 %Load the image
 I0 = imread('data/B/MIP5.jpg');

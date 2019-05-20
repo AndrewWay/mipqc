@@ -7,8 +7,8 @@ startIndex=6858;
 stopIndex=6908;%7008;
 nImages = stopIndex-startIndex;
 
-img_dim1Divisions=10;
-img_dim2Divisions=10;
+img_dim1Divisions=40;
+img_dim2Divisions=40;
 
 nFeatures=20;
 
@@ -51,7 +51,7 @@ for k=startIndex:stopIndex
         fprintf('File %s does not exist.\n', pngFileName);
     end
 end
-
+nObservations=size(data,1);
 [zdata,zmu,zsigma]=zscore(data);%Use this data to use correlation matrix in PCA
 
 [coeff,score,latent,~,explained] = pca(zdata);

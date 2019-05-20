@@ -1,7 +1,5 @@
 function [lines1,lines2] = find_vertical_and_horizontal_lines(I)
 %FIND_VERTICAL_AND_HORIZONTAL_LINES Summary of this function goes here
-imshow(I);
-pause;
 
 if size(I,3)>1
     I = rgb2gray(I);
