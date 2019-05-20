@@ -4,3 +4,5 @@
 **/*.bmp
 data/
 reports/
+**/*.mat
+**/*.fig
