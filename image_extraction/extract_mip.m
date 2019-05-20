@@ -1,23 +1,12 @@
 function [ extracted_mip ,marked_I] = extract_mip( I0 )
 %EXTRACT_MIP Returns the region of an image that contains a MIP
 
-%Rescale the image if necessary. High resolution is not necessary and 
-%increases computation time. 
-if size(I0,2)>640
-    I = imresize(I0, 640/size(I0,2));
-    scale_factor=size(I0,2)/640;
-    rescale=1;
-else
-    I=I0;
-    scale_factor=1;
-    rescale=0;
-end
 
 %Retrieve the sets of lines enclosing the MIP in image I
-[lines11,lines22,mip_edge,success] = find_mip(I,scale_factor);
+[lines11,lines22,success] = find_mip(I0);
 %draw_lines(lines11,lines22,I);
 if(success)
-marked_I = draw_lines(lines11,lines22,I);
+marked_I = draw_lines(lines11,lines22,I0);
 
 % Intersect the outer pair of lines, one from set 1 and one from set 2.
 % Output is the x,y coordinates of the intersections:
@@ -25,19 +14,15 @@ marked_I = draw_lines(lines11,lines22,I);
 % yIntersections(i1,i2): y coord of intersection of i1 and i2
 
 
-%Scale the Hough Lines
-scaled_lines11(2,:)=scale_factor*lines11(2,:);
-scaled_lines22(2,:)=scale_factor*lines22(2,:);
-scaled_lines11(1,:)=lines11(1,:);
-scaled_lines22(1,:)=lines22(1,:);
+
 
 %draw_lines(scaled_lines11,scaled_lines22,I0);
 %pause;
 %Level the MIP and the Hough lines
 [leveled_I0,leveled_scaled_lines11,leveled_scaled_lines22]=...
     level_mip(I0,...
-    scaled_lines11,...
-    scaled_lines22);
+    lines11,...
+    lines22);
 
 %figure(1), imshow(I0), title('Original');
 %figure(2), imshow(leveled_I0), title('Rotated');
