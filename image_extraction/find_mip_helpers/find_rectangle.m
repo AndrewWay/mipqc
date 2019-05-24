@@ -30,12 +30,12 @@ for i=1:nLines1
                 rl=lines2(2,l);
                 
                 [tmp_fit_grade]=grade_rectangle([linei,linej],[linel,linek]);
-                figure(3),imshow(draw_lines([linei,linej],[linel,linek],Itmp));
-                fprintf("--------------------------------------\n");
+                %figure(3),imshow(draw_lines([linei,linej],[linel,linek],Itmp));
+                %fprintf("--------------------------------------\n");
 
-                fprintf("Total Score: %f\n",tmp_fit_grade);
-                pause;
-                close(figure(3));
+                %fprintf("Total Score: %f\n",tmp_fit_grade);
+                %pause;
+                %close(figure(3));
                
                 if(tmp_fit_grade>fit_grade)
                     fit_grade=tmp_fit_grade;

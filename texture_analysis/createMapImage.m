@@ -17,7 +17,7 @@ out = mean([s,d]);
 %find maximum cell dimensions
 %TODO Fix this.
 regionPxsize1=floor(out(1,1));
-regionPxsize2=270;%floor(out(1,2));
+regionPxsize2=floor(0.35*out(1,2));
 
 im =  zeros(som_size1*regionPxsize1,som_size2*regionPxsize2,3);
 
@@ -87,6 +87,5 @@ for i=1:nCells
     end
 end
 im=uint8(im);
-imshow(im)
 end
 

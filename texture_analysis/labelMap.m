@@ -1,5 +1,8 @@
 %Update classifier matrix by clicking on SOM map
-
+if(~exist('classifier','var'))
+    fprintf('classifier does not exist. Creating now\n');
+    classifier=zeros(som_dim1,som_dim2);
+end
 
 tmp_map=createMapImage(image_cells,mapIndices,classifier);
 imshow(tmp_map);
