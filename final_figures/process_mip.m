@@ -5,8 +5,8 @@ close all;
 %Good MIP: 6887;
 %Bad MIP: 6894
 %Ugly MIP: 6875
-mip_index=6875;
-output_identifier="ugly";
+mip_index=6894;
+output_identifier="bad";
 cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
 output_file_path = strcat('results/', output_identifier, '/',output_identifier);
     
