@@ -5,9 +5,10 @@ close all;
 %Good MIP: 6887;
 %Bad MIP: 6894
 %Ugly MIP: 6875
-mip_index=6887;
-output_identifier="good";
+mip_index=6875;
+output_identifier="ugly";
 cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
+output_file_path = strcat('results/', output_identifier, '/',output_identifier);
     
 pause_figure=1;
 
@@ -21,7 +22,7 @@ if exist(cr2FileName, 'file')
     %ORIGINAL IMAGE
     figure(1),imshow(I);
     pause;
-    
+    imwrite(I, sprintf('%s_original.jpg',output_identifier),'jpg');
     %Find the four lines
     [lines1,lines2] = find_vertical_and_horizontal_lines(I);
 
@@ -37,18 +38,18 @@ if exist(cr2FileName, 'file')
     I_rectangle = draw_lines(lines11,lines22,I);
     figure(1),imshow(I_rectangle);
     pause;
-    
-    
+    imwrite(I_rectangle, sprintf('%s_rectangle.jpg',output_identifier),'jpg');
     %IMAGE WITH GEOMETRIC PROPERTY OVERLAY
     I_geometry = create_geometry_overlay(I,lines11,lines22);
     figure(1),imshow(I_geometry);
     pause;
-    
-    
+    imwrite(I_geometry, sprintf('%s_geometry.jpg',output_identifier),'jpg');
     %IMAGE WITH CLASSIFIED TEXTURE
     %TODO move to function
     
-    MIP=extract_mip(I);
+    %MIP=extract_mip(I);
+    MIP=I;
+    
     figure(1),imshow(MIP);
     pause;
     
@@ -108,6 +109,8 @@ if exist(cr2FileName, 'file')
         y1=y1+dim1_ij;
         fprintf("\n");
     end
+    minimize_white_space
+    saveas(gcf,sprintf('%s_texture.jpg',output_identifier));
 else
     fprintf("CR2 File does not exist.\n");
 end
