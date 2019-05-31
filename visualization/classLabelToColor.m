@@ -7,6 +7,8 @@ elseif(classLabel == 2)
     color=[0,0,255];
 elseif(classLabel ==3)
     color=[0,255,0];
+elseif(classLabel==4)
+    color=[0,255,255];
 else
     color=[0,0,0];
 end

@@ -2,11 +2,25 @@
 
 
 close all;
-%Good MIP: 6887;
-%Bad MIP: 6894
-%Ugly MIP: 6875
-mip_index=6894;
+
 output_identifier="bad";
+
+good_index=6887;
+bad_index=6894;
+ugly_index=6875;
+
+if(strcmp(output_identifier,"good"))
+    mip_index=good_index;
+end
+
+if(strcmp(output_identifier,"bad"))
+    mip_index=bad_index;
+end 
+
+if(strcmp(output_identifier,"ugly"))
+    mip_index=ugly_index;
+end
+
 cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
 output_file_path = strcat('results/', output_identifier, '/',output_identifier);
     
@@ -46,11 +60,22 @@ if exist(cr2FileName, 'file')
     imwrite(I_geometry, sprintf('%s_geometry.jpg',output_identifier),'jpg');
     %IMAGE WITH CLASSIFIED TEXTURE
     %TODO move to function
+        [rectangle_xInts,rectangle_yInts]=find_intersections(lines11,lines22);
+    rectangle_xInts=[rectangle_xInts(:,1);rectangle_xInts(:,2)];
+    rectangle_yInts=[rectangle_yInts(:,1);rectangle_yInts(:,2)];
+    %Find convex hull from the intercepts
+    int_order=convhull(rectangle_xInts,rectangle_yInts);
     
+    rectangle_xInts=rectangle_xInts(int_order);
+    rectangle_yInts=rectangle_yInts(int_order)
+    plot(rectangle_xInts,rectangle_yInts)
+    pause;
+    close all;
     %MIP=extract_mip(I);
-    MIP=I;
-    
+    %MIP=I;
+    MIP=I_rectangle;
     figure(1),imshow(MIP);
+    
     pause;
     
     
@@ -60,6 +85,7 @@ if exist(cr2FileName, 'file')
     index=1;
     new_cells = dice(MIP,img_dim1Divisions,img_dim2Divisions);
     
+
     %Find BMU
     y1=1;
     for i=1:img_dim1Divisions
@@ -70,6 +96,8 @@ if exist(cr2FileName, 'file')
             dim1_ij=size(img_ij,1);
             dim2_ij=size(img_ij,2);
             
+            cell_center_x=x1+dim2_ij/2;
+            cell_center_y=y1+dim1_ij/2;
             
             featVec = create_feature_vector(img_ij,nFeatures);
             %MUST ZSCORE THIS DATA TO MATCH ZDATA (refer to loadData.m)
@@ -83,26 +111,16 @@ if exist(cr2FileName, 'file')
             %             end
             %clusterIndex=findBMU(featVec',cell2mat(net.IW));
             [in,jn]=ind2sub([som_dim1,som_dim2],clusterIndex);
-            if(classifier(in,jn)==1)
+            
+            if(classifier(in,jn)>0&&inpolygon(cell_center_x,cell_center_y,...
+                    rectangle_xInts,rectangle_yInts))
                 rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
                     'Curvature',[0,0],...
-                    'EdgeColor', [1,0,0],...
+                    'EdgeColor', classLabelToColor(classifier(in,jn))/255,...
                     'LineWidth', 1,...
                     'LineStyle','-')
-            elseif(classifier(in,jn)==2)
-                rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
-                    'Curvature',[0,0],...
-                    'EdgeColor', [0,0,1],...
-                    'LineWidth', 1,...
-                    'LineStyle','-')
-            elseif(classifier(in,jn)==3)
-                rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
-                    'Curvature',[0,0],...
-                    'EdgeColor', [0,1,0],...
-                    'LineWidth', 1,...
-                    'LineStyle','-')
-                
             end
+           
             x1=x1+dim2_ij;
             index=index+1;
         end
