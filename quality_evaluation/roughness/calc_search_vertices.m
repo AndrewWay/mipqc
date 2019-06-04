@@ -9,5 +9,7 @@ y_shift=a*sin(th);
 p1=[xi-x_shift;yi+y_shift];
 p2=[xi+x_shift;yi-y_shift];
 
+p1=round(p1);
+p2=round(p2);
 end
 

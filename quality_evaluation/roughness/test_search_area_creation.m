@@ -114,11 +114,16 @@ for side=1:4
     keep_running=1;
     s=0;
     while(s<=line_length)
+        %the beginning of the ith bin
         qi=[xi;yi];
+        %Calculate the vertices, above and below qi, for the current search
+        %area
         [p1,p2]=calc_search_vertices(qi,th,a);
         
         
         qip1=[xip1;yip1];
+        %Calculate the vertices, above and below qi+1, for the current search
+        %area
         [p3,p4]=calc_search_vertices(qip1,th,a);
         
         bin_err=0;
