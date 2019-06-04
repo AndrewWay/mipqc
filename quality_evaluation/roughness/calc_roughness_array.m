@@ -25,6 +25,7 @@ m=(y2-y1)/(x2-x1);
 b=y1-m*x1;
 %(xi,yi) is the first end point of the bin. 
 %(xip1,yip1) is the second end point of the bin (xi plus 1, yi plus 1).
+rArray=zeros(n-1,1);
 
 for i=1:n-1
     qi=[xi;yi];
