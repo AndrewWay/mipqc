@@ -1,4 +1,4 @@
-function [ rArray,end_points] = calc_roughness_array( q1,q2,edge )
+function [ rArray,end_points] = calc_roughness_array( q1,q2,edge,a)
 %CALC_ROUGHNESS_ARRAY Calculates deviation of an edge from a line.
 %Breaks the line up into segments, and calculates a deviation of the edge
 %from each bin segment. 
@@ -6,6 +6,7 @@ function [ rArray,end_points] = calc_roughness_array( q1,q2,edge )
 %(x1,y1) is the first endpoint of the line. 
 x1=q1(1,1);
 y1=q1(2,1);
+
 %(x2,y2) is the second endpoint of the line. 
 x2=q2(1,1);
 y2=q2(2,1);
@@ -16,7 +17,7 @@ dl=30;
 n=floor(line_length/dl);
 
 
-dl=abs(line_length/n);
+dl=line_length/n;
 
 
 xi=x1;
@@ -47,7 +48,7 @@ for i=1:n-1
  
     end_points(i,:)=[xi,yi];
     
-    rArray(i,1)=calc_cell_roughness(qi,qip1,edge);
+    rArray(i,1)=calc_cell_roughness(qi,qip1,edge,a);
     
     %shift first endpoint to next endpoint.
     xi=xip1;

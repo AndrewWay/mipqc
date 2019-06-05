@@ -29,12 +29,16 @@ min_x=min(x_vertices);
 max_y=max(y_vertices);
 min_y=min(y_vertices);
 
-%mip_edge = edge(min_y:max_y,min_x:max_x);
-mip_edge=edge;
+mip_edge = edge(min_y:max_y,min_x:max_x);
+
 % imshow(mip_edge);
 % pause;
 
 mip_edge_coords=calc_edge_positions(mip_edge);
+mip_edge_coords(:,1)=mip_edge_coords(:,1)+min_x;
+mip_edge_coords(:,2)=mip_edge_coords(:,2)+min_y;
+
+
 edge_size=size(mip_edge_coords,1);
 
 
