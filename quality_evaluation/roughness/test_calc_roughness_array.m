@@ -2,8 +2,7 @@ clear all
 close all
 
 
-min_grade=0.7;
-max_grade=1-min_grade;
+minimum_grade=0.7;
 
 I = imread('data/D_raw/_MG_6884.png');
 
@@ -44,7 +43,8 @@ line4=[xInts(2,2),yInts(2,2),xInts(1,2),yInts(1,2)];
 I=draw_lines(lines11,lines22,I);
 
 all_lines=[line1;line2;line3;line4];
-a=20;
+a=10;
+dl=30;
 
 for line_index=1:4
     
@@ -52,7 +52,7 @@ for line_index=1:4
     start_of_line=[current_line(1,1);current_line(1,2)];
     end_of_line=[current_line(1,3);current_line(1,4)];
     
-    [end_points]=segment_line(start_of_line,end_of_line,a);
+    [end_points]=segment_line(start_of_line,end_of_line,dl);
     
     for i=1:size(end_points,1)-1
         qi=end_points(i,:);
@@ -64,13 +64,19 @@ for line_index=1:4
         [roughness,p1,p2,p3,p4]=calc_cell_roughness(qi,qip1,mip_edge,a);
         
         
-        
-        %I=insertShape(I,'Line',[qi(1,1),qi(2,1),qip1(1,1),qip1(2,1)],'Color','red');
-        I=insertShape(I,'Line',[p1(1,1),p1(2,1),p2(1,1),p2(2,1)]);
-        I=insertShape(I,'Line',[p2(1,1),p2(2,1),p4(1,1),p4(2,1)]);
-        I=insertShape(I,'Line',[p4(1,1),p4(2,1),p3(1,1),p3(2,1)]);
-        I=insertShape(I,'Line',[p3(1,1),p3(2,1),p1(1,1),p1(2,1)]);
-        
+        roughness_grade=1-(roughness)/a;
+        if(roughness_grade<0)
+            fprintf("WARNING: Roughness grade in test_calc_roughness_array.m is negative. Check this.\n");
+        end
+        %roughness_grade=(roughness_grade-minimum_grade)/minium_grade;
+        if(roughness_grade<minimum_grade)
+            box_color=gradeColor(roughness_grade);
+            %I=insertShape(I,'Line',[qi(1,1),qi(2,1),qip1(1,1),qip1(2,1)],'Color','red');
+            I=insertShape(I,'Line',[p1(1,1),p1(2,1),p2(1,1),p2(2,1)],'Color',box_color);
+            I=insertShape(I,'Line',[p2(1,1),p2(2,1),p4(1,1),p4(2,1)],'Color',box_color);
+            I=insertShape(I,'Line',[p4(1,1),p4(2,1),p3(1,1),p3(2,1)],'Color',box_color);
+            I=insertShape(I,'Line',[p3(1,1),p3(2,1),p1(1,1),p1(2,1)],'Color',box_color);
+        end
     end
     
 end
