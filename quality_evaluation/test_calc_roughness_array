@@ -1,0 +1,27 @@
+%Rescale the image if necessary. High resolution is not necessary and
+%increases computation time.
+clear all
+close all
+
+
+min_grade=0.7;
+max_grade=1-min_grade;
+
+I0 = imread('data/D_raw/_MG_6884.png');
+
+%Retrieve the sets of lines enclosing the MIP in image I
+[lines11,lines22,mip_edge] = find_mip(I0);
+%lines11: mostly vertical
+%lines22: mostly horizontal
+
+[xInts,yInts] = find_intersections(lines11,lines22);
+
+
+line1=[xInts(1,1),xInts(1,2);yInts(1,1),yInts(1,2)];%1st vertical
+line2=[xInts(1,1),xInts(2,1);yInts(1,1),yInts(2,1)];%1st horizontal
+line3=[xInts(2,1),xInts(2,2);yInts(2,1),yInts(2,2)];%2nd vertical
+line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];%2nd horizontal
+
+
+
+calc_roughness_array(

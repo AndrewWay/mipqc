@@ -1,4 +1,4 @@
-function [ rArray ] = calc_roughness_array( q1,q2,edge,th,alpha )
+function [ rArray,end_points] = calc_roughness_array( q1,q2,edge )
 %CALC_ROUGHNESS_ARRAY Calculates deviation of an edge from a line.
 %Breaks the line up into segments, and calculates a deviation of the edge
 %from each bin segment. 
@@ -10,44 +10,49 @@ y1=q1(2,1);
 x2=q2(1,1);
 y2=q2(2,1);
 
-dx=alpha/2;
+line_length=sqrt((x2-x1)^2+(y2-y1)^2);
 
-n=floor((x2-x1)/dx);
+dl=30;
+n=floor(line_length/dl);
 
-dx=abs((x2-x1)/n);
+
+dl=abs(line_length/n);
 
 
 xi=x1;
 yi=y1;
 
-%TODO account for vertical line
-m=(y2-y1)/(x2-x1);
-b=y1-m*x1;
+if(x2==x1)
+    dx=0;
+    dy=(y2-y1)/n;
+else
+    m=(y2-y1)/(x2-x1);
+    theta=atan(m);
+    dx=cos(theta)*dl;
+    dy=sin(theta)*dl;
+end
+
 %(xi,yi) is the first end point of the bin. 
 %(xip1,yip1) is the second end point of the bin (xi plus 1, yi plus 1).
 rArray=zeros(n-1,1);
-
+end_points=zeros(n,2);
 for i=1:n-1
     qi=[xi;yi];
-    [p1,p2]=calc_search_vertices(qi,th,alpha);
-    
+        
     xip1=xi+dx;
-    yip1=m*xip1+b;
-    
+    yip1=yi+dy;
+   
     
     qip1=[xip1;yip1];
-    [p3,p4]=calc_search_vertices(qip1,th,alpha);
-
+ 
+    end_points(i,:)=[xi,yi];
     
-    
+    rArray(i,1)=calc_cell_roughness(qi,qip1,edge);
     
     %shift first endpoint to next endpoint.
     xi=xip1;
     yi=yip1;
 end
-
-
-rArray
-
+end_points(n,:)=[xi,yi];
 end
 
