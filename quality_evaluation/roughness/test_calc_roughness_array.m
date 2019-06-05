@@ -7,9 +7,6 @@ max_grade=1-min_grade;
 
 I = imread('data/D_raw/_MG_6884.png');
 
-%Retrieve the sets of lines enclosing the MIP in image I
-I=remove_ruler(I);
-I = I(:,2000:end,:);
 
 %ORIGINAL IMAGE
 figure(1),imshow(I);
@@ -39,6 +36,45 @@ mip_edge = edge(gray_I,'canny',otsu_thresh);
 mip_edge_coords=calc_edge_positions(mip_edge);
 edge_size=size(mip_edge_coords,1);
 
+line1=[xInts(1,1),yInts(1,1),xInts(1,2),yInts(1,2)];
+line2=[xInts(1,1),yInts(1,1),xInts(2,1),yInts(2,1)];
+line3=[xInts(2,1),yInts(2,1),xInts(2,2),yInts(2,2)];
+line4=[xInts(2,2),yInts(2,2),xInts(1,2),yInts(1,2)];
+
+I=draw_lines(lines11,lines22,I);
+
+all_lines=[line1;line2;line3;line4];
+a=20;
+
+for line_index=1:4
+    
+    current_line=all_lines(line_index,:);
+    start_of_line=[current_line(1,1);current_line(1,2)];
+    end_of_line=[current_line(1,3);current_line(1,4)];
+    
+    [end_points]=segment_line(start_of_line,end_of_line,a);
+    
+    for i=1:size(end_points,1)-1
+        qi=end_points(i,:);
+        qi=[qi(1,1);qi(1,2)];
+        
+        qip1=end_points(i+1,:);
+        qip1=[qip1(1,1);qip1(1,2)];
+        
+        [roughness,p1,p2,p3,p4]=calc_cell_roughness(qi,qip1,mip_edge,a);
+        
+        
+        
+        %I=insertShape(I,'Line',[qi(1,1),qi(2,1),qip1(1,1),qip1(2,1)],'Color','red');
+        I=insertShape(I,'Line',[p1(1,1),p1(2,1),p2(1,1),p2(2,1)]);
+        I=insertShape(I,'Line',[p2(1,1),p2(2,1),p4(1,1),p4(2,1)]);
+        I=insertShape(I,'Line',[p4(1,1),p4(2,1),p3(1,1),p3(2,1)]);
+        I=insertShape(I,'Line',[p3(1,1),p3(2,1),p1(1,1),p1(2,1)]);
+        
+    end
+    
+end
+
 %Add mip edge to image
 for i=1:size(mip_edge_coords,1)
     x=mip_edge_coords(i,1);
@@ -47,39 +83,6 @@ for i=1:size(mip_edge_coords,1)
     I(y,x,1)=uint8(255);
     I(y,x,2)=uint8(0);
     I(y,x,3)=uint8(255);
-    
-end
-
-
-
-
-
-line1=[xInts(1,1),xInts(1,2);yInts(1,1),yInts(1,2)];%1st vertical
-line2=[xInts(1,1),xInts(2,1);yInts(1,1),yInts(2,1)];%1st horizontal
-line3=[xInts(2,1),xInts(2,2);yInts(2,1),yInts(2,2)];%2nd vertical
-line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];%2nd horizontal
-
-I=draw_lines(lines11,lines22,I);
-
-a=100;
-
-[end_points]=segment_line([line1(1,1);line1(1,2)],[line1(2,1);line1(2,2)],30);
-
-for i=1:size(end_points,1)-1
-    qi=end_points(i,:);
-    qi=[qi(1,1);qi(1,2)];
-    
-    qip1=end_points(i+1,:);
-    qip1=[qip1(1,1);qip1(1,2)];
-    
-    [roughness,p1,p2,p3,p4]=calc_cell_roughness(qi,qip1,mip_edge,a);
-    
-    
-    I=insertShape(I,'Line',[qi(1,1),qi(2,1),qip1(1,1),qip1(2,1)],'Color','red');
-    I=insertShape(I,'Line',[p1(1,1),p1(2,1),p2(1,1),p2(2,1)]);
-    I=insertShape(I,'Line',[p2(1,1),p2(2,1),p4(1,1),p4(2,1)]);
-    I=insertShape(I,'Line',[p4(1,1),p4(2,1),p3(1,1),p3(2,1)]);
-    I=insertShape(I,'Line',[p3(1,1),p3(2,1),p1(1,1),p1(2,1)]);
     
 end
 

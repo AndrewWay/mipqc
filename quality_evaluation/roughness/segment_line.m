@@ -15,6 +15,15 @@ n=floor(line_length/dl);
 
 dl=line_length/n;
 
+if(x1>x2)
+   tmp=x2;
+   x2=x1;
+   x1=tmp;
+   tmp=y2;
+   y2=y1;
+   y1=tmp;
+end
+
 xi=x1;
 yi=y1;
 
