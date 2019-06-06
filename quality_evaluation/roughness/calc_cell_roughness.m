@@ -1,4 +1,4 @@
-function [ roughness,p1,p2,p3,p4 ] = calc_cell_roughness(qi,qip1,edge,a)
+function [ roughness,p1,p2,p3,p4,n_edge_points ] = calc_cell_roughness(qi,qip1,edge,a)
 %CALC_CELL_ROUGHNESS Calculates average distance of edge points from middle
 %of box
 %Extract the points
@@ -60,7 +60,7 @@ end
 if(n_edge_points>0)
     roughness=roughness/n_edge_points;
 else
-    disp("no edge points in box");
+    %disp("no edge points in box");
 end
 end
 
