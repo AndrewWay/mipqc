@@ -37,7 +37,7 @@ E = edge(I,'canny',otsu_thresh);
 %TODO maybe. Find horizontal peaks, and then vertical peaks.
 %Students write your code here
 nPeaks = 50;%usually 10.
-myThresh = 0.3*max(H(:));
+myThresh = 0.2*max(H(:));
 peaks = houghpeaks(H,nPeaks,'Threshold',myThresh);
 
 %Display Hough array and draw peaks on Hough array.
@@ -69,9 +69,9 @@ peaks = houghpeaks(H,nPeaks,'Threshold',myThresh);
     thetaValues(peaks(:,2))); % thetas for the lines
 %pause
 if(isempty(lines1)||isempty(lines2))
-    disp("isempty");
+   % disp("isempty");
 else
-    disp("sorting");
+   % disp("sorting");
     % Sort the lines, from top to bottom (for horizontal lines) and left to
     % right (for vertical lines).
     lines1 = sort_lines(lines1);

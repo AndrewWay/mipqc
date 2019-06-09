@@ -29,6 +29,20 @@ min_x=min(x_vertices);
 max_y=max(y_vertices);
 min_y=min(y_vertices);
 
+if(min_y<size(edge,1))
+   min_y=1; 
+end
+if(min_x<size(edge,2))
+   min_x=1; 
+end
+
+if(max_y>size(edge,1))
+   max_y=size(edge,1); 
+end
+if(max_x>size(edge,2))
+   max_x=size(edge,2); 
+end
+
 mip_edge = edge(min_y:max_y,min_x:max_x);
 
 % imshow(mip_edge);

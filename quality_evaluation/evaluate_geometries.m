@@ -4,8 +4,8 @@ clear all;
 close all;
 
 
-starting_index=6858;
-ending_index=7008;
+starting_index=6995;
+ending_index=6995;
 
 %values being collected:
 %index,internal angles,side lengths,Edge roughnesses,
@@ -20,6 +20,7 @@ for mip_index=starting_index:ending_index
     
     if exist(cr2FileName, 'file')
         %Read into MIP image to matrices
+        fprintf("Processing MIP%d\n",mip_index);
         I = imread(cr2FileName);
         
         I=remove_ruler(I);
@@ -85,22 +86,23 @@ for mip_index=starting_index:ending_index
             if(aspect_ratio>3)
                 fprintf("MIP%d has an abnormally high aspect ratio\n");
                 figure(1),imshow(I_rectangle);
-                pause;
+               % pause;
             end
             if(surface_area>280)
-                fprintf("MIP%d has an abnormally large surface area\n");
+                fprintf("MIP %d has an abnormally large surface area\n",mip_index);
                 figure(1),imshow(I_rectangle);
-                pause;
+               % pause;
             end
             if(surface_area<100)
-                fprintf("MIP%d has an abnormally low surface area\n");
+                fprintf("MIP %d has an abnormally low surface area\n",mip_index);
                 figure(1),imshow(I_rectangle);
-                pause;
+               % pause;
             end
+            figure(1),imshow(I_rectangle);
         else
-            fprintf("No candidate rectangles for MIP%d could be found.\n",mip_index);
+            fprintf("No candidate rectangles for MIP %d could be found.\n",mip_index);
             figure(1),imshow(I);
-            pause;
+            %pause;
         end
     else
         fprintf("CR2 File does not exist.\n");
