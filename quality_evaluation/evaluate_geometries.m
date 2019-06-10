@@ -4,8 +4,8 @@ clear all;
 close all;
 
 
-starting_index=6995;
-ending_index=6995;
+starting_index=6858;
+ending_index=7008;
 
 %values being collected:
 %index,internal angles,side lengths,Edge roughnesses,
@@ -98,7 +98,11 @@ for mip_index=starting_index:ending_index
                 figure(1),imshow(I_rectangle);
                % pause;
             end
-            figure(1),imshow(I_rectangle);
+            fprintf("Saving file.\n");
+            outputFileName=strcat('final_figures/results/Processed_geometry/D',...
+                num2str(mip_index), '.png');
+            imwrite(I_rectangle,outputFileName);
+            %figure(1),imshow(I_rectangle);
         else
             fprintf("No candidate rectangles for MIP %d could be found.\n",mip_index);
             figure(1),imshow(I);

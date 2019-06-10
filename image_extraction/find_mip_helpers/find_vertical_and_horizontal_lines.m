@@ -1,6 +1,5 @@
 function [lines1,lines2] = find_vertical_and_horizontal_lines(I)
 %FIND_VERTICAL_AND_HORIZONTAL_LINES Summary of this function goes here
-
 if size(I,3)>1
     I = rgb2gray(I);
 end
@@ -14,14 +13,21 @@ if size(I,2)>640
     I = imresize(I, 640/size(I,2));
 end
 
+%Stores the number of times the function tried to find two orthogonal sets
+%of lines with at least two lines each
+number_of_attempts=1;
+max_number_of_attempts=3;
+retry=1;
 
 % Do edge detection using canny.
 %try different thresholds (0.5thresh - 5 thresh) to get clean edges
 
 %Students write your code here - use E as the name of edge image
 otsu_thresh=graythresh(I);
-E = edge(I,'canny',otsu_thresh);
 
+while(retry)
+E = edge(I,'canny',otsu_thresh);
+%imshow(E);
 %pause
 
 
@@ -68,8 +74,23 @@ peaks = houghpeaks(H,nPeaks,'Threshold',myThresh);
     rhoValues(peaks(:,1)), ... % rhos for the lines
     thetaValues(peaks(:,2))); % thetas for the lines
 %pause
-if(isempty(lines1)||isempty(lines2))
+if(size(lines1,2)<2||size(lines2,2)<2)
    % disp("isempty");
+   % Repeat the search process but with a smaller threshold on the
+   % intensity image
+   number_of_attempts=number_of_attempts+1;
+   fprintf("find_vertical_and_horizontal_lines failed to find four lines.\n");
+   if(number_of_attempts<=max_number_of_attempts)
+      retry=1;
+      fprintf("Lowering intensity image threshold and retrying.\n");
+      fprintf("This will be attempt %d out of %d\n",number_of_attempts,...
+       max_number_of_attempts);
+   otsu_thresh=0.9*otsu_thresh;
+   else
+       retry=0;
+       fprintf("find_vertical_and_horizontal_lines failed to find four lines. Aborting.\n");
+   end
+   
 else
    % disp("sorting");
     % Sort the lines, from top to bottom (for horizontal lines) and left to
@@ -82,7 +103,8 @@ else
     lines1(2,:)=scale_factor*lines1(2,:);
     lines2(2,:)=scale_factor*lines2(2,:);
 
-    
+    retry=0;
+end
 end
 end
 
