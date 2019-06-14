@@ -14,6 +14,10 @@ whiteness_thresh=0.5;
 nLines1=size(lines1,2);
 nLines2=size(lines2,2);
 
+I_debug=draw_all_lines(lines1,'green',I);
+I_debug=draw_all_lines(lines2,'blue',I_debug);
+imshow(I_debug);
+pause;
 % tol=0.00001;
 % %Remove lines11 from lines1
 % for i=1:nLines1
@@ -78,19 +82,28 @@ for i=1:nLines1
         %rho > line11_2 rho
         if((r_i<lines11(2,1)&&r_i>lines11(2,2))...
                 ||(r_i<lines11(2,2)&&r_i>lines11(2,1)))
-          %  fprintf("%s\n",...
-          %      'Line 76, filter_white_blocks. Lines Parallel. New line is within rectangle.');
+            %  fprintf("%s\n",...
+            
+            %      'Line 76, filter_white_blocks. Lines Parallel. New line is within rectangle.');
             %Find the line from lines11 that line1_i is closest to
             if(abs(r_i-lines11(2,1))<abs(r_i-lines11(2,2)))
                 %Replace lines11(:,2) with line1_i
                 replaced_line=lines11(:,2);
                 lines11(:,2)=[t_i;r_i];
                 lines11_2_replaced=1;
+                I_debug=draw_all_lines(lines11,'green',I);
+                I_debug=draw_all_lines(lines22,'blue',I_debug);
+                imshow(I_debug);
+                pause;
             else
                 %Replace lines11(:,1) with line1_i
                 replaced_line=lines11(:,1);
                 lines11(:,1)=[t_i;r_i];
                 lines11_2_replaced=0;
+                I_debug=draw_all_lines(lines11,'green',I);
+                I_debug=draw_all_lines(lines22,'blue',I_debug);
+                imshow(I_debug);
+                
             end
             
             if(formsRectangle(lines11,lines22))
@@ -174,7 +187,7 @@ for i=1:nLines2
                 lines22(:,2)=[t_i;r_i];
                 lines22_2_replaced=1;
             else
-               
+                
                 %Replace lines22(:,1) with line2_i
                 replaced_line=lines22(:,1);
                 lines22(:,1)=[t_i;r_i];
