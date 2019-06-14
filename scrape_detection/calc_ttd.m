@@ -22,13 +22,8 @@ for i=1:max_thres_i
    cell_truth(i,1)=truth(bw_img);
 end
 
-%Calculate the length of the curve between where truth<=0.99 and >= 0.0001
-i=1;%int16((0.5-min_thres)/dthres);
-%while(cell_truth(i,1)>ttd_start_truth)
-%    i=i+1;
-%    
-%end
 
+i=1;
 thres=min_thres+dthres*i;
 
 truth_i=cell_truth(i,1);

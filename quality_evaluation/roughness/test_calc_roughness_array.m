@@ -48,6 +48,16 @@ I=draw_lines(lines11,lines22,I);
 
 all_lines=[line1;line2;line3;line4];
 
+%Add mip edge to image
+for i=1:size(mip_edge_coords,1)
+    x=mip_edge_coords(i,1);
+    y=mip_edge_coords(i,2);
+    
+    I(y,x,1)=uint8(255);
+    I(y,x,2)=uint8(0);
+    I(y,x,3)=uint8(255);
+    
+end
 
 for line_index=1:4
     
@@ -57,13 +67,17 @@ for line_index=1:4
     
     [end_points]=segment_line(start_of_line,end_of_line,dl);
     
-    for i=1:size(end_points,1)-1
+    for i=1:size(end_points,1)
+        
         qi=end_points(i,:);
         qi=[qi(1,1);qi(1,2)];
         
-        qip1=end_points(i+1,:);
-        qip1=[qip1(1,1);qip1(1,2)];
-        
+        if(i==size(end_points,1))
+            qip1=[end_of_line(1,1);end_of_line(2,1)];
+        else
+            qip1=end_points(i+1,:);
+            qip1=[qip1(1,1);qip1(1,2)];
+        end
         [roughness,p1,p2,p3,p4,n_edge_points]=calc_cell_roughness(qi,qip1,mip_edge,a);
         
         
@@ -97,15 +111,6 @@ for line_index=1:4
     
 end
 
-%Add mip edge to image
-for i=1:size(mip_edge_coords,1)
-    x=mip_edge_coords(i,1);
-    y=mip_edge_coords(i,2);
-    
-    I(y,x,1)=uint8(255);
-    I(y,x,2)=uint8(0);
-    I(y,x,3)=uint8(255);
-    
-end
+
 
 imshow(I);

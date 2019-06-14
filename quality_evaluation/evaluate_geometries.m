@@ -3,7 +3,6 @@
 clear all;
 close all;
 
-
 starting_index=6858;
 ending_index=7008;
 
@@ -15,7 +14,7 @@ for mip_index=starting_index:ending_index
     cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
     output_identifier=num2str(mip_index);
     output_file_path = strcat('results/geometries/',output_identifier);
-    
+
     pause_figure=1;
     
     if exist(cr2FileName, 'file')

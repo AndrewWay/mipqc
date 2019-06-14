@@ -1,5 +1,6 @@
 %Rescale the image if necessary. High resolution is not necessary and
 %increases computation time.
+%Is this old? Can we delete this script?
 clear all
 close all
 
