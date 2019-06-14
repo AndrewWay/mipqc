@@ -1,4 +1,4 @@
-
+%TODO rename to draw_box
 function [I] = draw_lines(lines11,lines22,I)
 %DRAW Summary of this function goes here
 %   Detailed explanation goes here
