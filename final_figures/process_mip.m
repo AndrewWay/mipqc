@@ -2,7 +2,7 @@
 
 close all;
 
-output_identifier="good";
+output_identifier="ugly";
 
 good_index=6887;
 bad_index=6894;
