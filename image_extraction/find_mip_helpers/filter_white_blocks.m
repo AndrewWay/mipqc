@@ -18,6 +18,7 @@ I_debug=draw_all_lines(lines1,'green',I);
 I_debug=draw_all_lines(lines2,'blue',I_debug);
 imshow(I_debug);
 pause;
+
 % tol=0.00001;
 % %Remove lines11 from lines1
 % for i=1:nLines1
@@ -106,17 +107,16 @@ for i=1:nLines1
                 
             end
             
-            if(formsRectangle(lines11,lines22))
+%            if(formsRectangle(lines11,lines22))
                 
-                [leveled_I,leveled_lines11,leveled_lines22]=...
-                    level_mip(I,lines11,lines22);
+             %   [leveled_I,leveled_lines11,leveled_lines22]=...
+             %       level_mip(I,lines11,lines22);
                 
                 [xIntersections, yIntersections] = find_intersections(...
-                    leveled_lines11,...
-                    leveled_lines22);
+                    lines11,...
+                    lines22);
                 
-                [px1,py1,px2,py2]=find_perfect_vertices(xIntersections,yIntersections);
-                
+  
                 %Extract the leveled section
                 extracted_mip = extract_rectangle(leveled_I,px1,py1,px2,py2);
                 bw_mip_fragment = im2bw(extracted_mip,bw_thresh);
@@ -153,13 +153,13 @@ for i=1:nLines1
                         lines11(:,1)=replaced_line;
                     end
                 end
-            else
-                if(lines11_2_replaced)
-                    lines11(:,2)=replaced_line;
-                else
-                    lines11(:,1)=replaced_line;
-                end
-            end
+%             else
+%                 if(lines11_2_replaced)
+%                     lines11(:,2)=replaced_line;
+%                 else
+%                     lines11(:,1)=replaced_line;
+%                 end
+%             end
         end
     end
 end

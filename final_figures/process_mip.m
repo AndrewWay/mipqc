@@ -1,10 +1,8 @@
 %Determines what cells are "mip-like"
 
-
 close all;
 
-
-output_identifier="ugly";
+output_identifier="good";
 
 good_index=6887;
 bad_index=6894;
@@ -24,7 +22,7 @@ end
 
 cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
 output_file_path = strcat('results/', output_identifier, '/',output_identifier);
-    
+
 pause_figure=1;
 
 if exist(cr2FileName, 'file')
@@ -54,6 +52,7 @@ if exist(cr2FileName, 'file')
     [lines11,lines22]=filter_white_blocks(lines11,lines22,lines1,lines2,I);
     
     I_rectangle = draw_lines(lines11,lines22,I);
+    disp("filtered");
     figure(1),imshow(I_rectangle);
     pause;
     imwrite(I_rectangle, sprintf('%s_rectangle.jpg',output_identifier),'jpg');
