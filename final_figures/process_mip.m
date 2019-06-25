@@ -49,8 +49,8 @@ if exist(cr2FileName, 'file')
     lines22=[lines2(:,best_rectangle(3)),lines2(:,best_rectangle(4))];
     
     %False edge edge detection
-    [lines11,lines22]=filter_white_blocks(lines11,lines22,lines1,lines2,I);
-    
+  %  [lines11,lines22]=filter_white_blocks(lines11,lines22,lines1,lines2,I);
+    trim_edges(lines11,lines22,I);
     I_rectangle = draw_lines(lines11,lines22,I);
     disp("filtered");
     figure(1),imshow(I_rectangle);
