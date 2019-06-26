@@ -2,8 +2,8 @@ function [ lines11,lines22 ] = trim_edges( lines11,lines22,I )
 %TRIM_EDGES Summary of this function goes here
 %   Detailed explanation goes here
 
-rho_shift=15;
-truth_threshold=0.7;
+rho_shift=3;
+truth_threshold=0.5;
 %Get center of MIP
 
 [xInts,yInts]=find_intersections(lines11,lines22);
@@ -39,12 +39,14 @@ for i=1:2
     I_lines=draw_all_lines(shifting_line,'red',I_lines);
     %Calculate the truth of the segment
     [xInts,yInts]=find_intersections([[t;r],shifting_line],lines22);
-    I_bw=im2bw(I);
+    
+    I_bw=im2bw(I,graythresh(I));
     truth=calc_truth_of_region(xInts,yInts,I_bw);
     
+    %Recursively trim the lines until it hits a dark region
     if(truth>truth_threshold)
         lines11(:,i)=shifting_line;
-        trim_edges(lines11,lines22,I);
+        [lines11,lines22]=trim_edges(lines11,lines22,I);
     else
         lines11(:,i)=[t;r];
     end
