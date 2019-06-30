@@ -12,10 +12,15 @@ line3=[xInts(2,1),xInts(2,2);yInts(2,1),yInts(2,2)];
 line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];
 
 %Find the angles of intersection of the lines
-ang1=calc_angle_of_intersection(lines11(:,1),lines22(:,1),lines11(:,2),lines22(:,2));
-ang2=calc_angle_of_intersection(lines11(:,1),lines22(:,2),lines11(:,2),lines22(:,1));
-ang3=calc_angle_of_intersection(lines11(:,2),lines22(:,1),lines11(:,1),lines22(:,2));
-ang4=calc_angle_of_intersection(lines11(:,2),lines22(:,2),lines11(:,1),lines22(:,1));
+% ang1=calc_angle_of_intersection(lines11(:,1),lines22(:,1),lines11(:,2),lines22(:,2));
+% ang2=calc_angle_of_intersection(lines11(:,1),lines22(:,2),lines11(:,2),lines22(:,1));
+% ang3=calc_angle_of_intersection(lines11(:,2),lines22(:,1),lines11(:,1),lines22(:,2));
+% ang4=calc_angle_of_intersection(lines11(:,2),lines22(:,2),lines11(:,1),lines22(:,1));
+
+ang1=calc_angle_of_intersection([xInts(1,1),yInts(1,1)],[xInts(1,2),yInts(1,2)],[xInts(2,1),yInts(2,1)]);
+ang2=calc_angle_of_intersection([xInts(1,2),yInts(1,2)],[xInts(1,1),yInts(1,1)],[xInts(2,2),yInts(2,2)]);
+ang3=calc_angle_of_intersection([xInts(2,1),yInts(2,1)],[xInts(1,1),yInts(1,1)],[xInts(2,2),yInts(2,2)]);
+ang4=calc_angle_of_intersection([xInts(2,2),yInts(2,2)],[xInts(1,2),yInts(1,2)],[xInts(2,1),yInts(2,1)]);
 
 %Display these angles in the image
 I_overlayed=insertText(I_overlayed,[xInts(1,1) yInts(1,1)],ang1,'FontSize',font_size,...
