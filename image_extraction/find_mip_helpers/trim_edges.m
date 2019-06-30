@@ -2,7 +2,7 @@ function [ lines11,lines22 ] = trim_edges( lines11,lines22,I )
 %TRIM_EDGES Summary of this function goes here
 %   Detailed explanation goes here
 
-rho_shift=3;
+rho_shift=15;
 truth_threshold=0.5;
 %Get center of MIP
 
@@ -40,7 +40,7 @@ for i=1:2
     shifting_line(2,1)=shifting_line(2,1)+shift;
     
     
-    lines=[shifting_line,lines22];
+    lines=[[t;r],lines22];
     I_lines=draw_all_lines(lines,'green',I);
     I_lines=draw_all_lines(shifting_line,'red',I_lines);
     %Calculate the truth of the segment

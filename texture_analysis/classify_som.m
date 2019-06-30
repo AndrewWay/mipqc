@@ -1,4 +1,4 @@
-function [ classified ] = classify_som( cells,net,classifier,zmu,zsigma,som_dim1,som_dim2)
+function [ classified ] = classify_som( cells,net,classifier,zmu,zsigma,som_dim1,som_dim2,nFeatures,tCoeff)
 %CLASSIFY Classifies a image cell using a SOM
 nObservations=size(cells,1);
 classified=zeros(nObservations,1);

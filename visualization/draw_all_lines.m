@@ -2,6 +2,8 @@ function [ I ] = draw_all_lines( lines,color,I )
 %DRAW_ALL_LINES Draws lines specified by theta and rho in I
 n=size(lines,2);
 I_size=size(I,2);
+line_width=6;
+
 for i=1:n
     theta=lines(1,i);
     theta=theta*pi/180;
@@ -23,7 +25,7 @@ for i=1:n
     end
     
     line=[x1 y1 x2 y2];
-    I=insertShape(I,'Line',line,'LineWidth',6,'Color',color);
+    I=insertShape(I,'Line',line,'LineWidth',line_width,'Color',color);
 end
 
 end
