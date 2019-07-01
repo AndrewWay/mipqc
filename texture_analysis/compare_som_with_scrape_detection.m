@@ -15,8 +15,9 @@ for i=1:nObservations
         i=nObservations;
     else
         total_labeled_cells=total_labeled_cells+1;
+        cell_index=random_cell_indices(1,i);
         human_label=cell_classes(i,1);
-        im_cell=image_cells(i);
+        im_cell=image_cells(cell_index);
         mat = cell2mat(im_cell);
         [som_label]=classify_som(im_cell,net,classifier,zmu,zsigma,som_dim1,som_dim2,nFeatures,tCoeff);
         [scrape_label]=find_scrapes(mat);

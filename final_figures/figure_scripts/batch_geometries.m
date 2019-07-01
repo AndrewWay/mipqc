@@ -19,41 +19,41 @@ end
 %SURFACE AREA HISTOGRAM
 hist(processed_geometries(:,2),30);
 
-title('Surface areas of 137 MIP films');
+title('Surface areas of 145 MIP films');
 xlabel('Surface Area (mm^2)');
 saveas(gcf,'surface_area.png');
 
 %ASPECT RATIO HISTOGRAM
 hist(processed_geometries(:,3),30);
 
-title('Aspect Ratios of 137 MIP films');
+title('Aspect Ratios of 145 MIP films');
 xlabel('Aspect Ratio');
 saveas(gcf,'aspect_ratio.png');
 
 %AVERAGE INTERNAL ANGLE HISTOGRAM
 hist(processed_geometries(:,4),20);
 
-title('Average Internal Angles of 137 MIP films');
+title('Average Internal Angles of 145 MIP films');
 xlabel('Average Internal Angle (Degrees)');
 saveas(gcf,'internal_angle.png');
 
 %STANDARD DEVIATION OF INTERNAL ANGLE HISTOGRAM
 hist(processed_geometries(:,5),20);
 
-title('Standard Deviation of Internal Angles of 137 MIP films');
+title('Standard Deviation of Internal Angles of 145 MIP films');
 xlabel('Standard Deviation (Angles)');
 saveas(gcf,'std.png');
 
 %EDGE ROUGHNESS HISTOGRAM
 hist(processed_geometries(:,6),20);
 
-title('Edge Roughness of 137 MIP films');
+title('Edge Roughness of 145 MIP films');
 xlabel('Fraction of Edge Considered Too Rough');
 saveas(gcf,'edge_roughness.png');
 
 %EDGE WEAKNESS HISTOGRAM
 hist(processed_geometries(:,7),20);
 
-title('Edge Weakness of 137 MIP films');
+title('Edge Weakness of 145 MIP films');
 xlabel('Fraction of Edge considered too weak');
 saveas(gcf,'edge_weakness.png');

@@ -53,11 +53,11 @@ for mip_index=starting_index:ending_index
             line4=[xInts(2,2),xInts(1,2);yInts(2,2),yInts(1,2)];
             
             %Find the angles of intersection of the lines
-            ang1=calc_angle_of_intersection(lines11(:,1),lines22(:,1));
-            ang2=calc_angle_of_intersection(lines11(:,1),lines22(:,2));
-            ang3=calc_angle_of_intersection(lines11(:,2),lines22(:,1));
-            ang4=calc_angle_of_intersection(lines11(:,2),lines22(:,2));
-            
+ang1=calc_angle_of_intersection([xInts(1,1),yInts(1,1)],[xInts(1,2),yInts(1,2)],[xInts(2,1),yInts(2,1)]);
+ang2=calc_angle_of_intersection([xInts(1,2),yInts(1,2)],[xInts(1,1),yInts(1,1)],[xInts(2,2),yInts(2,2)]);
+ang3=calc_angle_of_intersection([xInts(2,1),yInts(2,1)],[xInts(1,1),yInts(1,1)],[xInts(2,2),yInts(2,2)]);
+ang4=calc_angle_of_intersection([xInts(2,2),yInts(2,2)],[xInts(1,2),yInts(1,2)],[xInts(2,1),yInts(2,1)]);
+
             average_angle=(ang1+ang2+ang3+ang4)/4;
             std_angle=std([ang1,ang2,ang3,ang4]);
             

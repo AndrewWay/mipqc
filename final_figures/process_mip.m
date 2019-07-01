@@ -2,7 +2,7 @@
 
 close all;
 
-output_identifier="ugly";
+output_identifier="good";
 
 good_index=6887;
 bad_index=6894;
@@ -49,9 +49,7 @@ if exist(cr2FileName, 'file')
     lines22=[lines2(:,best_rectangle(3)),lines2(:,best_rectangle(4))];
     
     %False edge edge detection
-  %  [lines11,lines22]=filter_white_blocks(lines11,lines22,lines1,lines2,I);
     [lines11,lines22]=trim_edges(lines11,lines22,I);
-    %[lines22,lines11]=trim_edges(lines22,lines11,I);
     
     I_rectangle = draw_lines(lines11,lines22,I);
     disp("filtered");
@@ -117,11 +115,14 @@ if exist(cr2FileName, 'file')
             %clusterIndex=findBMU(featVec',cell2mat(net.IW));
             [in,jn]=ind2sub([som_dim1,som_dim2],clusterIndex);
             
-            if(classifier(in,jn)>0&&inpolygon(cell_center_x,cell_center_y,...
-                    rectangle_xInts,rectangle_yInts))
+%             if(find_scrapes(img_ij)==1&&inpolygon(cell_center_x,cell_center_y,...
+%                     rectangle_xInts,rectangle_yInts))
+
+           if(classifier(in,jn)>0&&inpolygon(cell_center_x,cell_center_y,...
+                   rectangle_xInts,rectangle_yInts))
                 rectangle('Position',[x1,y1,dim2_ij,dim1_ij],...
                     'Curvature',[0,0],...
-                    'EdgeColor', classLabelToColor(classifier(in,jn))/255,...
+                    'EdgeColor', 'r',...%classLabelToColor(classifier(in,jn))/255,...
                     'LineWidth', 1,...
                     'LineStyle','-')
             end
