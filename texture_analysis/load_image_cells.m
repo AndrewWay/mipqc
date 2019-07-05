@@ -1,4 +1,4 @@
-%DEPRECATED: use load_image_cells and then load_feature_vectors
+
 close all;
 clear all;
 
@@ -10,11 +10,9 @@ nImages = stopIndex-startIndex;
 img_dim1Divisions=40;
 img_dim2Divisions=40;
 
-nFeatures=20;
 
 %each row in data corresponds to the same row in imageCells. 
 nObservations=nImages*img_dim1Divisions*img_dim2Divisions;
-data=[];% = zeros(nObservations,nFeatures);%matrix with each row being an observation.
 image_cells = [];%cell(nObservations,1);%column vector containing cells of images
 
 %Load images into memory
@@ -39,10 +37,6 @@ for k=startIndex:stopIndex
             for jj=1:regionCells_dim2
                 cell_ij=regionCells(ii,jj);
                 mat=cell2mat(cell_ij);
-                feature_vector=create_feature_vector(mat,nFeatures);
-                %data(cellIndex,:)=feature_vector;
-                %image_cells(cellIndex)=cell_ij;
-                data=[data;feature_vector];
                 image_cells=[image_cells;cell_ij];
                 cellIndex=cellIndex+1;
             end
@@ -51,11 +45,5 @@ for k=startIndex:stopIndex
         fprintf('File %s does not exist.\n', pngFileName);
     end
 end
-nObservations=size(image_cells,1);
-[zdata,zmu,zsigma]=zscore(data);%Use this data to use correlation matrix in PCA
 
-[coeff,score,latent,~,explained] = pca(zdata);
-tCoeff=coeff(:,1:4);
-
-tData = zdata*tCoeff;
-W=tData;
+save('training_image_cells.mat','image_cells');
