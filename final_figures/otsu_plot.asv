@@ -8,24 +8,24 @@ I = imread('original_mip.jpg');
 G=rgb2gray(I);
 imshow(I);
 
-[counts] = histogram(G,256);
+[counts] = histogram(G);
 p=counts.Values;
 
-%set(gca,'YScale','log')
+set(gca,'YScale','log')
 T = graythresh(G);
 variances=zeros(1,L);
 for i=1:L
-    variances(i)=sigb(i,p,L);
+    variances(i)=
 end
 
 
-function [res] =  sigb(t,p,L)
-    [w0,w1] = om(t,p,L);
-    [mu0,mu1] = mu(t,p,L);
+function [res] =  sigb(t,p)
+    [w0,w1] = om(t,p);
+    [mu0,mu1] = mu(t,p);
     res=w0*w1*(mu0-mu1)^2;
     
 end
-function [ mu0,mu1 ] = mu(t,p,L)
+function [ mu0,mu1 ] = mu(t,p)
     mu0=0;
     mu1=0;
     
@@ -44,7 +44,7 @@ function [ mu0,mu1 ] = mu(t,p,L)
 end
 
 
-function [ w0,w1 ] = om(t,p,L)
+function [ w0,w1 ] = om(t,p)
     w0=0;
     w1=0;
     for i=1:t
@@ -56,7 +56,7 @@ function [ w0,w1 ] = om(t,p,L)
 end
 
 
-function [res] = muT(p,L)
+function [res] = muT(p)
 res=0;    
     for i=1:L
        res=res+i*p(i); 
