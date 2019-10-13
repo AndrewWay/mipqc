@@ -20,6 +20,8 @@ if(strcmp(output_identifier,"ugly"))
     mip_index=ugly_index;
 end
 
+mip_index=6877;
+
 cr2FileName = strcat('data/D_raw/_MG_', num2str(mip_index), '.CR2');
 output_file_path = strcat('results/', output_identifier, '/',output_identifier);
 
